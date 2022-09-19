@@ -10,6 +10,10 @@ html {
     background-color: $dark;
 }
 
+div#content {
+    background-color: $white;
+}
+
 // Change body color
 body {
     background-color: $white;
@@ -99,34 +103,4 @@ h5,
 h6,
 .h6 {
     font-weight: 300;
-}
-
-// Fix Elementor Button Styles
-.elementor-button {
-    @extend .btn;
-    @extend .btn-primary;
-}
-
-.elementor-button-info {
-    @extend .btn-info;
-}
-
-.elementor-button-success {
-    @extend .btn-success;
-}
-
-.elementor-button-warning {
-    @extend .btn-warning;
-}
-
-.elementor-button-danger {
-    @extend .btn-danger;
-}
-
-.elementor-size-xs {
-    @extend .btn-sm;
-}
-
-.elementor-size-lg {
-    @extend .btn-lg;
 }
