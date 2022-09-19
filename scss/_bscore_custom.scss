@@ -102,10 +102,10 @@ h6,
 }
 
 // Fix Elementor Button Styles
-.elementor-widget-button {
+.elementor-button {
     @extend .btn;
 }
 
-.elementor-widget-button.elementor-size-sm {
+.elementor-button.elementor-size-sm {
     @extend .btn-sm;
 }
