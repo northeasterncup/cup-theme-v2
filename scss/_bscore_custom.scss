@@ -100,3 +100,12 @@ h6,
 .h6 {
     font-weight: 300;
 }
+
+// Fix Elementor Button Styles
+.elementor-widget-button {
+    @extend .btn;
+}
+
+.elementor-widget-button.elementor-size-sm {
+    @extend .btn-sm;
+}
