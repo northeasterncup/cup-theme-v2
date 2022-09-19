@@ -1,2 +1,102 @@
 // In this file you can override the default variables of Bootstrap
 // Do you want primary to be green? Just add "$primary: #00FF00;" to this file and the theme will automatically compile the scss for you.
+// Color system
+// scss-docs-start gray-color-variables
+$white: #fff;
+$gray-100: #e6e6e6;
+$gray-200: #cecece;
+$gray-300: #b5b5b5;
+$gray-400: #9d9d9d;
+$gray-500: #848484;
+$gray-600: #6b6b6b;
+$gray-700: #535353;
+$gray-800: #3a3a3a;
+$gray-900: #222222;
+$black: #090909;
+$cup-white: #faf5ec;
+// scss-docs-start color-variables
+$blue: #0079ce;
+$indigo: #596bcf;
+$purple: #7B75B0;
+$pink: #ff8598;
+$red: #d65228;
+$orange: #faaa50;
+$yellow: #ffc107;
+$green: #2d9019;
+$teal: #00917A;
+$cyan: #28c3e2;
+// scss-docs-start theme-color-variables
+$primary: $red;
+$secondary: $gray-600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+// Settings for the `<body>` element.
+$body-bg: $white;
+$body-color: $black;
+// Navbar
+$navbar-dark-color: $cup-white;
+$navbar-dark-hover-color: $primary;
+$navbar-dark-active-color: $primary;
+$navbar-padding-y: 10px;
+// Border radius
+$border-radius: .375rem;
+$border-radius-sm: .25rem;
+$border-radius-lg: .5rem;
+$border-radius-xl: 1rem;
+$border-radius-2xl: 2rem;
+$border-radius-pill: 50rem;
+// Checkboxes
+$form-check-input-border-radius: .25em;
+// Style anchor elements.
+$link-decoration: underline;
+$link-hover-decoration: null;
+// Fonts
+$font-family-sans-serif: acumin-pro,
+system-ui,
+-apple-system,
+"Segoe UI",
+Roboto,
+"Helvetica Neue",
+Arial,
+"Noto Sans",
+"Liberation Sans",
+sans-serif,
+"Apple Color Emoji",
+"Segoe UI Emoji",
+"Segoe UI Symbol",
+"Noto Color Emoji";
+$font-family-monospace: SFMono-Regular,
+Menlo,
+Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace;
+$headings-font-family: americane,
+acumin-pro,
+system-ui,
+-apple-system,
+"Segoe UI",
+Roboto,
+"Helvetica Neue",
+Arial,
+"Noto Sans",
+"Liberation Sans",
+sans-serif,
+"Apple Color Emoji",
+"Segoe UI Emoji",
+"Segoe UI Symbol",
+"Noto Color Emoji";
+$headings-font-weight: 700;
+$display-font-weight: 400;
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 2.5;
+$h2-font-size: $font-size-base * 2.5;
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.125;
+$h6-font-size: $font-size-base;
