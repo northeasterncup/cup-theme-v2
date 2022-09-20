@@ -104,3 +104,17 @@ h6,
 .h6 {
     font-weight: 300;
 }
+
+// MC4WP Styling
+.mc4wp-alert {
+    @extend .mt-3;
+    @extend .alert;
+}
+
+.mc4wp-alert.mc4wp-success {
+    @extend .alert-success;
+}
+
+.mc4wp-alert.mc4wp-error {
+    @extend .alert-danger;
+}
