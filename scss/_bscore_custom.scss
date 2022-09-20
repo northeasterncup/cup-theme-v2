@@ -111,6 +111,10 @@ h6,
     @extend .alert;
 }
 
+.mc4wp-alert p {
+    margin-bottom: 0rem;
+}
+
 .mc4wp-alert.mc4wp-success {
     @extend .alert-success;
 }
