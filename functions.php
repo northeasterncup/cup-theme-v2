@@ -112,7 +112,7 @@ function cup_events3_function()
   $card = '<div class="events">';
   foreach ($items as $item) {
     if ($rowCount % $numOfCols == 0) {
-      $card .= '<div class="row g-3">';
+      $card .= '<div class="row mb-3 g-3">';
     }
     $rowCount++;
     $card .= '<div class="col col-sm-' . $bootstrapColWidth . '">';
