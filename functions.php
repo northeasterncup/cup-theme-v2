@@ -100,7 +100,7 @@ function cup_members_function()
 {
   $request = engage_request('/organizations/organization/' . CUP_ORGANIZATION_ID . '/member', array(
     'take' => '100',
-    'skip' => '0'
+    'skip' => '500'
   ));
   $items = $request['items'];
   $card = '<div class="mt-3">';
