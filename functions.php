@@ -95,19 +95,22 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 //   return $objects;
 // }
 
-// Hello World shortcode
-function hello_world_function()
+// CUP Members
+function cup_members_function()
 {
-  $request = engage_request('/organizations/organization');
+  $request = engage_request('/organizations/organization/' . CUP_ORGANIZATION_ID . '/member', array(
+    'take' => '50',
+    'skip' => '0'
+  ));
   $items = $request['items'];
   $card = '<div class="mt-3">';
   foreach ($items as $item) {
     $card .= '<p><div class="card">';
     $card .= '<div class="card-body">';
-    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
+    $card .= '<h3 class="card-title">' . $item['userId']['username'] . '</h3>';
     $card .= '<p class="card-text">';
     if (!is_null($item['email'])) {
-      $card .= '<a href="mailto:' . $item['email'] . '">' . $item['email'] . '</a>';
+      $card .= '<a href="mailto:' . $item['userId']['campusEmail'] . '">' . $item['userId']['campusEmail'] . '</a>';
       $card .= '</br>';
     }
     $card .= $item['summary'];
