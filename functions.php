@@ -34,7 +34,7 @@ define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
 define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
 
 // Engage Request
-function engage_request($endpoint = '/organizations/organization', $args, $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
+function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
 {
   $allArgs = array_merge(array(
     'take' => ENGAGE_PAGE_SIZE,
@@ -62,7 +62,7 @@ function engage_request($endpoint = '/organizations/organization', $args, $metho
 }
 
 // Concat Pages
-function concat_pages($endpoint = '/organizations/organization', $args, $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
+function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
 {
   $objects = array();
   $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
@@ -97,6 +97,7 @@ function concat_pages($endpoint = '/organizations/organization', $args, $method 
 // Hello World shortcode
 function hello_world_function()
 {
-  return '<h1 class="h1">Hello world! Today is a great day!</h1>';
+  $request = engage_request('/organizations/organization');
+  $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
 }
 add_shortcode('hello_world', 'hello_world_function');
