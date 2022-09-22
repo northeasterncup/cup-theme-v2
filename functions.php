@@ -114,13 +114,12 @@ function cup_events_function()
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
-    $card .= '<p class="card-text">';
+    $card .= '<span class="card-text">';
     if (strlen($item['description']) > 0) {
       $card .= $item['description'];
-      $card .= '</br>';
     }
     $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary">View Event Details</a>';
-    $card .= '</p></div></div></p>';
+    $card .= '</span></div></div></p>';
   }
   $card .= '</div>';
   return $card;
