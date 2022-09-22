@@ -109,13 +109,13 @@ function cup_events_function()
   $card = '<div class="mt-3">';
   foreach ($items as $item) {
     $card .= '<p><div class="card" style="width: 18rem;">';
-    if (!is_null($item['imageUrl'])) {
+    if (strlen($item['imageUrl']) > 0) {
       $card .= '<img src="' . $item['imageUrl'] . '" class="card-img-top" alt="Event Image">';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
     $card .= '<p class="card-text">';
-    if (!is_null($item['description'])) {
+    if (strlen($item['description']) > 0) {
       $card .= $item['description'];
       $card .= '</br>';
     }
