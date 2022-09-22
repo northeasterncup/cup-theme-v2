@@ -15,3 +15,118 @@ function bootscore_child_enqueue_styles()
   // custom.js
   wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom.js', false, '', true);
 }
+
+/**
+ * Engage API for Displaying Events
+ * 
+ * API Documentation: https://engage-api.campuslabs.com/
+ */
+
+// Constants
+define('CUP_ORGANIZATION_ID', '280350'); // get this using the /organizations/organization endpoint
+define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
+define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
+
+/**
+ * Define EngageApiRequest
+ */
+class Engage_Api extends WP_HTTP
+{
+  const BASE_URL = 'https://engage-api.campuslabs.com/api/v3.0';
+  public $apiKey = 'esk_live_f98d79b42f2b22e3a9f9aacdcc4bf758';
+  public $pageSize = '50';
+  public $endpoint = '/organizations/member';
+  public $method = 'GET';
+  public $body = '';
+  public array $args;
+  public array $headers;
+
+  public function engage_request($endpoint = NULL, $method = NULL, $body = NULL, $args = NULL, $headers = NULL)
+  {
+    if (is_null($endpoint)) {
+      $endpoint = $this->endpoint;
+    }
+    if (is_null($method)) {
+      $method = $this->method;
+    }
+    if (is_null($body)) {
+      $body = $this->body;
+    }
+    if (is_null($args)) {
+      $args = $this->args;
+    }
+    if (is_null($headers)) {
+      $headers = $this->headers;
+    }
+    $allArgs = array_merge(array(
+      'take' => $this->pageSize,
+      'skip' => '0'
+    ), $args);
+    $allHeaders = array_merge(
+      array(
+        'Accept' => 'application/json',
+        'X-Engage-Api-Key' => $this->apiKey
+      ),
+      $headers
+    );
+    $full_url = self::BASE_URL . $endpoint . http_build_query($allArgs);
+    $request = WP_HTTP::request(
+      $full_url,
+      array(
+        'method' => $method,
+        'httpversion' => '1.1',
+        'headers' => $allHeaders,
+        'body' => $body
+      )
+    );
+
+    return $request;
+  }
+
+  public function concat_pages($endpoint = NULL, $method = NULL, $body = NULL, $args = NULL, $headers = NULL)
+  {
+    if (is_null($endpoint)) {
+      $endpoint = $this->endpoint;
+    }
+    if (is_null($method)) {
+      $method = $this->method;
+    }
+    if (is_null($body)) {
+      $body = $this->body;
+    }
+    if (is_null($args)) {
+      $args = $this->args;
+    }
+    if (is_null($headers)) {
+      $headers = $this->headers;
+    }
+    $objects = [];
+    $firstRequest = $this->engage_request($endpoint, $method, $body, $args, $headers);
+    $firstRequestResponse = $firstRequest['response'];
+    $decodedFirstRequest = json_decode($firstRequestResponse);
+    $firstRequestItems = $decodedFirstRequest['items'];
+    $totalItems = $decodedFirstRequest['totalItems'];
+    foreach ($firstRequestItems as $firstRequestItem) {
+      array_push($objects, $firstRequestItem);
+    }
+    if ($totalItems > 50) {
+      $skip = 50;
+      $remaining = TRUE;
+      while ($remaining) {
+        $request = $this->engage_request($endpoint, $method, $body, array_merge($args, array(
+          'skip' => $skip
+        )), $headers);
+        $response = $request['response'];
+        $decoded = json_decode($response, true);
+        $items = $decoded['items'];
+        foreach ($items as $item) {
+          array_push($objects, $item);
+        }
+        $totalItems = $decoded['totalItems'];
+        $remaining = $totalItems - $skip;
+        $skip = $totalItems - $remaining;
+      }
+    }
+    return $objects;
+  }
+}
