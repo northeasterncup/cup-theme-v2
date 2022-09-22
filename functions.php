@@ -104,7 +104,7 @@ function hello_world_function()
   foreach ($items as $item) {
     $card .= '<p><div class="card">';
     $card .= '<div class="card-body">';
-    $card .= '<h5 class="card-title">' . $item['name'] . '</h5>';
+    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
     $card .= '<p class="card-text">';
     if (!is_null($item['email'])) {
       $card .= $item['email'];
