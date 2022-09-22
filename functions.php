@@ -102,8 +102,8 @@ function cup_events3_function()
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true',
-    'take' => '100',
-    'skip' => '60'
+    'take' => '3',
+    'skip' => '0'
   ));
   $items = $request['items'];
   $numOfCols = 3;
