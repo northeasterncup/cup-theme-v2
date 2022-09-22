@@ -99,7 +99,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function cup_members_function()
 {
   $request = engage_request('/organizations/organization/' . CUP_ORGANIZATION_ID . '/member', array(
-    'take' => '500',
+    'take' => '100',
     'skip' => '0'
   ));
   $items = $request['items'];
@@ -107,7 +107,7 @@ function cup_members_function()
   foreach ($items as $item) {
     $card .= '<p><div class="card">';
     $card .= '<div class="card-body">';
-    $card .= '<h3 class="card-title">' . $item['userId']['username'] . '</h3>';
+    $card .= '<h3 class="card-title">' . $item['userId']['campusEmail'] . '</h3>';
     $card .= '<p class="card-text">';
     if (!is_null($item['email'])) {
       $card .= '<a href="mailto:' . $item['userId']['campusEmail'] . '">' . $item['userId']['campusEmail'] . '</a>';
