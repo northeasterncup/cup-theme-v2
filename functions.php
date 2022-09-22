@@ -47,7 +47,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     ),
     $headers
   );
-  $full_url = ENGAGE_BASE_URL . $endpoint . http_build_query($allArgs);
+  $full_url = ENGAGE_BASE_URL . $endpoint . '?' . http_build_query($allArgs);
   $request = wp_remote_request(
     $full_url,
     array(
