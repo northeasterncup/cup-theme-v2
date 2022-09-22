@@ -112,12 +112,12 @@ function cup_events_function()
   $card = '<div class="events">';
   foreach ($items as $item) {
     if ($rowCount % $numOfCols == 0) {
-      $card .= '<div class="row g-2">';
+      $card .= '<div class="row g-3">';
     }
     $rowCount++;
     $card .= '<div class="card col-md-' . $bootstrapColWidth . '" style="width: 18rem;">';
     if (strlen($item['imageUrl']) > 0) {
-      $card .= '<img src="' . $item['imageUrl'] . '" class="card-img-top" alt="Event Image">';
+      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
