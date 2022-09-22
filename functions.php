@@ -106,9 +106,9 @@ function cup_events_function()
     'skip' => '60'
   ));
   $items = $request['items'];
-  $card = '<div class="mt-3">';
+  $card = '<div class="row">';
   foreach ($items as $item) {
-    $card .= '<p><div class="card d-inline-flex" style="width: 18rem;">';
+    $card .= '<p><div class="card col-md-4" style="width: 18rem;">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<img src="' . $item['imageUrl'] . '" class="card-img-top" alt="Event Image">';
     }
