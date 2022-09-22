@@ -99,7 +99,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function cup_members_function()
 {
   $request = engage_request('/organizations/organization/' . CUP_ORGANIZATION_ID . '/member', array(
-    'take' => '50',
+    'take' => '100',
     'skip' => '0'
   ));
   $items = $request['items'];
