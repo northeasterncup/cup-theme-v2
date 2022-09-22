@@ -119,4 +119,4 @@ function cup_members_function()
   $card .= '</div>';
   return $card;
 }
-add_shortcode('hello_world', 'hello_world_function');
+add_shortcode('cup_members', 'cup_members_function');
