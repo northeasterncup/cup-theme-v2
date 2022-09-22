@@ -103,7 +103,7 @@ function cup_events_function()
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true',
     'take' => '100',
-    'skip' => '50'
+    'skip' => '60'
   ));
   $items = $request['items'];
   $card = '<div class="mt-3">';
