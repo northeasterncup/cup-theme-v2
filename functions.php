@@ -58,41 +58,42 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     )
   );
   $response_body = wp_remote_retrieve_body($request);
-  return json_decode($response_body);
+  $decoded_body = json_decode($response_body);
+  return $decoded_body;
 }
 
-// Concat Pages
-function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
-{
-  $objects = array();
-  $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
-  $firstRequestResponse = $firstRequest['response'];
-  $decodedFirstRequest = json_decode($firstRequestResponse);
-  $firstRequestItems = $decodedFirstRequest['items'];
-  $totalItems = $decodedFirstRequest['totalItems'];
-  foreach ($firstRequestItems as $firstRequestItem) {
-    array_push($objects, $firstRequestItem);
-  }
-  if ($totalItems > 50) {
-    $skip = 50;
-    $remaining = TRUE;
-    while ($remaining) {
-      $request = engage_request($endpoint, array_merge($args, array(
-        'skip' => $skip
-      )), $method, $body, $headers);
-      $response = $request['response'];
-      $decoded = json_decode($response, true);
-      $items = $decoded['items'];
-      foreach ($items as $item) {
-        array_push($objects, $item);
-      }
-      $totalItems = $decoded['totalItems'];
-      $remaining = $totalItems - $skip;
-      $skip = $totalItems - $remaining;
-    }
-  }
-  return $objects;
-}
+// // Concat Pages
+// function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
+// {
+//   $objects = array();
+//   $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
+//   $firstRequestResponse = $firstRequest['response'];
+//   $decodedFirstRequest = json_decode($firstRequestResponse);
+//   $firstRequestItems = $decodedFirstRequest['items'];
+//   $totalItems = $decodedFirstRequest['totalItems'];
+//   foreach ($firstRequestItems as $firstRequestItem) {
+//     array_push($objects, $firstRequestItem);
+//   }
+//   if ($totalItems > 50) {
+//     $skip = 50;
+//     $remaining = TRUE;
+//     while ($remaining) {
+//       $request = engage_request($endpoint, array_merge($args, array(
+//         'skip' => $skip
+//       )), $method, $body, $headers);
+//       $response = $request['response'];
+//       $decoded = json_decode($response, true);
+//       $items = $decoded['items'];
+//       foreach ($items as $item) {
+//         array_push($objects, $item);
+//       }
+//       $totalItems = $decoded['totalItems'];
+//       $remaining = $totalItems - $skip;
+//       $skip = $totalItems - $remaining;
+//     }
+//   }
+//   return $objects;
+// }
 
 // Hello World shortcode
 function hello_world_function()
