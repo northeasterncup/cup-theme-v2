@@ -96,24 +96,27 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 // }
 
 // CUP Members
-function cup_members_function()
+function cup_events_function()
 {
-  $request = engage_request('/organizations/organization/' . CUP_ORGANIZATION_ID . '/member', array(
+  $request = engage_request('/events/event/', array(
+    'organizationIds' => CUP_ORGANIZATION_ID,
+    'excludeCoHosts' => 'false',
+    'includeSubmissionIds' => 'true',
     'take' => '100',
-    'skip' => '500'
+    'skip' => '0'
   ));
   $items = $request['items'];
   $card = '<div class="mt-3">';
   foreach ($items as $item) {
     $card .= '<p><div class="card">';
     $card .= '<div class="card-body">';
-    $card .= '<h3 class="card-title">' . $item['userId']['campusEmail'] . '</h3>';
+    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
     $card .= '<p class="card-text">';
-    if (!is_null($item['email'])) {
-      $card .= '<a href="mailto:' . $item['userId']['campusEmail'] . '">' . $item['userId']['campusEmail'] . '</a>';
+    if (!is_null($item['description'])) {
+      $card .= $item['description'];
       $card .= '</br>';
     }
-    $card .= $item['summary'];
+    $card .= 'Taking place in: ' . $item['address']['name'];
     $card .= '</p></div></div></p>';
   }
   $card .= '</div>';
