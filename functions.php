@@ -34,7 +34,7 @@ define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
 define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
 
 // Engage Request
-function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
+function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allArgs = array_merge(array(
     'take' => ENGAGE_PAGE_SIZE,
@@ -99,7 +99,7 @@ function hello_world_function()
 {
   $request = engage_request('/organizations/organization');
   $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
-  $stuff .= json_encode($request['response']['totalItems']);
+  $stuff .= $request;
   return $stuff;
 }
 add_shortcode('hello_world', 'hello_world_function');
