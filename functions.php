@@ -58,7 +58,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     )
   );
   $response_body = wp_remote_retrieve_body($request);
-  $decoded_body = $response_body;
+  $decoded_body = json_decode($response_body, true);
   return $decoded_body;
 }
 
@@ -98,7 +98,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 // Hello World shortcode
 function hello_world_function()
 {
-  $request = json_decode(engage_request('/organizations/organization'), true);
+  $request = engage_request('/organizations/organization');
   $items = $request['items'];
   $card = '<div class="mt-3">';
   foreach ($items as $item) {
