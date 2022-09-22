@@ -126,7 +126,7 @@ function cup_events3_function()
     if (strlen($item['description']) > 0) {
       $card .= $item['description'];
     }
-    $card .= '</br><a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary">View Event Details</a>';
+    $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary mt-1">View Event Details</a>';
     $card .= '</span></div></div></div>';
     if ($rowCount % $numOfCols == 0) {
       $card .= '</div>';
