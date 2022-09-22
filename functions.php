@@ -99,7 +99,7 @@ function hello_world_function()
 {
   $request = engage_request('/organizations/organization');
   $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
-  $stuff .= json_encode($request['response']);
+  $stuff .= json_encode($request['response']['totalItems']);
   return $stuff;
 }
 add_shortcode('hello_world', 'hello_world_function');
