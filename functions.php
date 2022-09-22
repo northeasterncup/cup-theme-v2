@@ -58,7 +58,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     )
   );
   $response_body = wp_remote_retrieve_body($request);
-  return $response_body;
+  return json_decode($response_body);
 }
 
 // Concat Pages
@@ -99,7 +99,7 @@ function hello_world_function()
 {
   $request = engage_request('/organizations/organization');
   $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
-  $stuff .= $request;
+  $stuff .= $request['totalItems'];
   return $stuff;
 }
 add_shortcode('hello_world', 'hello_world_function');
