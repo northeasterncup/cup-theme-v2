@@ -108,7 +108,10 @@ function cup_events_function()
   $items = $request['items'];
   $card = '<div class="mt-3">';
   foreach ($items as $item) {
-    $card .= '<p><div class="card">';
+    $card .= '<p><div class="card" style="width: 18rem;">';
+    if (!is_null($item['imageUrl'])) {
+      $card .= '<img src="' . $item['imageUrl'] . '" class="card-img-top" alt="Event Image">';
+    }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
     $card .= '<p class="card-text">';
@@ -122,4 +125,4 @@ function cup_events_function()
   $card .= '</div>';
   return $card;
 }
-add_shortcode('cup_members', 'cup_members_function');
+add_shortcode('cup_events', 'cup_events_function');
