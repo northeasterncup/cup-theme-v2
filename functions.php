@@ -96,7 +96,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 // }
 
 // CUP Members
-function cup_events_function()
+function cup_events3_function()
 {
   $request = engage_request('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
@@ -135,4 +135,4 @@ function cup_events_function()
   $card .= '</div>';
   return $card;
 }
-add_shortcode('cup_events', 'cup_events_function');
+add_shortcode('cup_events3', 'cup_events3_function');
