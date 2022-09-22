@@ -106,8 +106,10 @@ function hello_world_function()
     $card .= '<div class="card-body">';
     $card .= '<h5 class="card-title">' . $item['name'] . '</h5>';
     $card .= '<p class="card-text">';
-    $card .= $item['email'];
-    $card .= '</br>';
+    if (!is_null($item['email'])) {
+      $card .= $item['email'];
+      $card .= '</br>';
+    }
     $card .= $item['summary'];
     $card .= '</p></div></div></p>';
   }
