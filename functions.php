@@ -107,7 +107,7 @@ function hello_world_function()
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
     $card .= '<p class="card-text">';
     if (!is_null($item['email'])) {
-      $card .= $item['email'];
+      $card .= '<a href="mailto:' . $item['email'] . '">' . $item['email'] . '</a>';
       $card .= '</br>';
     }
     $card .= $item['summary'];
