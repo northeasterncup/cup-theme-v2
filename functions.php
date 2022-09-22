@@ -108,7 +108,7 @@ function cup_events_function()
   $items = $request['items'];
   $card = '<div class="row">';
   foreach ($items as $item) {
-    $card .= '<p><div class="card col-md-4" style="width: 18rem;">';
+    $card .= '<div class="card col-md-4" style="width: 18rem;">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<img src="' . $item['imageUrl'] . '" class="card-img-top" alt="Event Image">';
     }
@@ -119,7 +119,7 @@ function cup_events_function()
       $card .= $item['description'];
     }
     $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary">View Event Details</a>';
-    $card .= '</span></div></div></p>';
+    $card .= '</span></div></div>';
   }
   $card .= '</div>';
   return $card;
