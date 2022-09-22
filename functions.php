@@ -98,11 +98,10 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 // Hello World shortcode
 function hello_world_function()
 {
-  $request = engage_request('/organizations/organization');
-  $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
+  $request = json_decode(engage_request('/organizations/organization'), true);
   $items = $request['items'];
   $card = '<div class="mt-3">';
-  foreach(json_decode($items) as $item) {
+  foreach ($items as $item) {
     $card .= '<p><div class="card">';
     $card .= '<div class="card-body">';
     $card .= '<h5 class="card-title">' . $item['name'] . '</h5>';
