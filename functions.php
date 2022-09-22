@@ -115,7 +115,8 @@ function cup_events_function()
       $card .= '<div class="row g-3">';
     }
     $rowCount++;
-    $card .= '<div class="card col-md-' . $bootstrapColWidth . '" style="width: 18rem;">';
+    $card .= '<div class="col col-md-' . $bootstrapColWidth . '">';
+    $card .= '<div class="card" style="width: 18rem;">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
     }
@@ -126,7 +127,7 @@ function cup_events_function()
       $card .= $item['description'];
     }
     $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary">View Event Details</a>';
-    $card .= '</span></div></div>';
+    $card .= '</span></div></div></div>';
     if ($rowCount % $numOfCols == 0) {
       $card .= '</div>';
     }
