@@ -106,13 +106,13 @@ function cup_events_function()
     'skip' => '60'
   ));
   $items = $request['items'];
-  $numOfCols = 4;
+  $numOfCols = 3;
   $rowCount = 0;
   $bootstrapColWidth = 12 / $numOfCols;
-  $card = '<div class="row row-cols-4 g-2">';
+  $card = '<div class="events">';
   foreach ($items as $item) {
     if ($rowCount % $numOfCols == 0) {
-      $card .= '<div class="row">';
+      $card .= '<div class="row g-2">';
     }
     $rowCount++;
     $card .= '<div class="card col-md-' . $bootstrapColWidth . '" style="width: 18rem;">';
