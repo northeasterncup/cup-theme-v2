@@ -57,8 +57,8 @@ function engage_request($endpoint = '/organizations/organization', $args = array
       'body' => $body
     )
   );
-
-  return $request;
+  $response_body = wp_remote_retrieve_body($request);
+  return $response_body;
 }
 
 // Concat Pages
