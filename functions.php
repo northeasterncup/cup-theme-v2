@@ -100,7 +100,19 @@ function hello_world_function()
 {
   $request = engage_request('/organizations/organization');
   $stuff = '<h1 class="h1">Hello world! Today is a great day!</h1>';
-  $stuff .= $request;
-  return $stuff;
+  $items = $request['items'];
+  $card = '<div class="mt-3">';
+  foreach(json_decode($items) as $item) {
+    $card .= '<p><div class="card">';
+    $card .= '<div class="card-body">';
+    $card .= '<h5 class="card-title">' . $item['name'] . '</h5>';
+    $card .= '<p class="card-text">';
+    $card .= $item['email'];
+    $card .= '</br>';
+    $card .= $item['summary'];
+    $card .= '</p></div></div></p>';
+  }
+  $card .= '</div>';
+  return $card;
 }
 add_shortcode('hello_world', 'hello_world_function');
