@@ -58,7 +58,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     )
   );
   $response_body = wp_remote_retrieve_body($request);
-  $decoded_body = json_decode($response_body);
+  $decoded_body = $response_body;
   return $decoded_body;
 }
 
