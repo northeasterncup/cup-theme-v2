@@ -143,6 +143,7 @@ function engage_events_function()
     'includeSubmissionIds' => true
   ), 'GET');
   $request = $object->engage_request();
-  return $request['response'];
+  $decoded = json_decode($request['response']);
+  return implode(", ", $decoded);
 }
 add_shortcode('engage_events', 'engage_events_function');
