@@ -144,6 +144,7 @@ function engage_events_function()
   ), 'GET');
   $request = $object->engage_request();
   $decoded = json_decode($request['response']);
-  return implode(", ", $decoded);
+  // return implode(", ", $decoded);
+  return 'Hello world!';
 }
 add_shortcode('engage_events', 'engage_events_function');
