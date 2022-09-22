@@ -103,7 +103,7 @@ function cup_events_function()
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true',
     'take' => '100',
-    'skip' => '0'
+    'skip' => '50'
   ));
   $items = $request['items'];
   $card = '<div class="mt-3">';
@@ -119,7 +119,7 @@ function cup_events_function()
       $card .= $item['description'];
       $card .= '</br>';
     }
-    $card .= 'Taking place in: ' . $item['address']['name'];
+    $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary">View Event Details</a>';
     $card .= '</p></div></div></p>';
   }
   $card .= '</div>';
