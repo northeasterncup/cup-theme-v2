@@ -116,7 +116,7 @@ function cup_events3_function()
     }
     $rowCount++;
     $card .= '<div class="col col-sm-' . $bootstrapColWidth . '">';
-    $card .= '<div class="card"';
+    $card .= '<div class="card">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
     }
