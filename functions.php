@@ -101,7 +101,8 @@ function cup_events_home_function()
     'take' => '3',
     'skip' => '0'
   ));
-  $items = $request['body']['items'];
+  $request_body = json_decode($request['body']);
+  $items = $request_body['items'];
   $numOfCols = 3;
   $rowCount = 0;
   $bootstrapColWidth = 12 / $numOfCols;
