@@ -125,10 +125,18 @@ h6,
 
 // Event Card Styles
 .event-card {
-    div.card-img-top {
+    div.card-img-top.event-img {
         @extend .card-img-top;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
+        width: 100%;
+        margin: 10px 30px 10px 10px;
+        flex: 1 1 0%;
+        div.event-img-bg {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            padding-bottom: 60%;
+            margin-bottom: 16px;
+            border-radius: 2px;
+        }
     }
 }
