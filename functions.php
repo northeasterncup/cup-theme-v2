@@ -68,10 +68,11 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allItems = array();
+  $take = ENGAGE_PAGE_SIZE;
   $baseReq = engage_request($endpoint, array_merge(
     $args,
     array(
-      'take' => ENGAGE_PAGE_SIZE,
+      'take' => $take,
       'skip' => '0'
     )
   ), $method, $body, $headers);
@@ -80,12 +81,12 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   foreach ($baseReqItems as $baseReqItem) {
     $allItems[] = $baseReqItem;
   }
-  if ($totalItems > ENGAGE_PAGE_SIZE) {
-    $skip = ENGAGE_PAGE_SIZE;
-    $remaining = $totalItems - ENGAGE_PAGE_SIZE;
+  if ($totalItems > $take) {
+    $skip = $take;
+    $remaining = $totalItems - $take;
     while ($remaining > 0) {
       $request = engage_request($endpoint, array_merge($args, array(
-        'take' => ENGAGE_PAGE_SIZE,
+        'take' => $take,
         'skip' => $skip
       )), $method, $body, $headers);
       $items = $request['items'];
