@@ -142,7 +142,7 @@ function cup_events_function()
     $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
     $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
-      $card .= '<div class="card-img-top event-img"><div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="event-img-bg" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div></div>';
+      $card .= '<div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div>';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
