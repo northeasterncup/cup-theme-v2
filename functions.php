@@ -77,7 +77,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   $baseReqItems = $baseReq['items'];
   $totalItems = $baseReq['totalItems'];
   foreach ($baseReqItems as $baseReqItem) {
-    $allItems[] = $baseReqItem;
+    array_push($allItems, $baseReqItem);
   }
   if ($totalItems > 50) {
     $skip = 50;
@@ -89,7 +89,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
       )), $method, $body, $headers);
       $items = $request['items'];
       foreach ($items as $item) {
-        $allItems[] = $item;
+        array_push($allItems, $item);
       }
       $remaining = $remaining - $skip;
       $skip = $totalItems - $remaining;
