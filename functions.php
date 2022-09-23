@@ -57,46 +57,42 @@ function engage_request($endpoint = '/organizations/organization', $args = array
       'body' => $body
     )
   );
-  $response_body = wp_remote_retrieve_body($request);
-  $decoded_body = json_decode($response_body, true);
-  return $decoded_body;
+  return $request;
 }
 
-// // Concat Pages
-// function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array('Accept' => 'application/json'))
-// {
-//   $objects = array();
-//   $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
-//   $firstRequestResponse = $firstRequest['response'];
-//   $decodedFirstRequest = json_decode($firstRequestResponse);
-//   $firstRequestItems = $decodedFirstRequest['items'];
-//   $totalItems = $decodedFirstRequest['totalItems'];
-//   foreach ($firstRequestItems as $firstRequestItem) {
-//     array_push($objects, $firstRequestItem);
-//   }
-//   if ($totalItems > 50) {
-//     $skip = 50;
-//     $remaining = TRUE;
-//     while ($remaining) {
-//       $request = engage_request($endpoint, array_merge($args, array(
-//         'skip' => $skip
-//       )), $method, $body, $headers);
-//       $response = $request['response'];
-//       $decoded = json_decode($response, true);
-//       $items = $decoded['items'];
-//       foreach ($items as $item) {
-//         array_push($objects, $item);
-//       }
-//       $totalItems = $decoded['totalItems'];
-//       $remaining = $totalItems - $skip;
-//       $skip = $totalItems - $remaining;
-//     }
-//   }
-//   return $objects;
-// }
+// Concat Pages
+function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
+{
+  $objects = array();
+  $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
+  $firstRequestBody = $firstRequest['body'];
+  $firstRequestItems = $firstRequestBody['items'];
+  $totalItems = $firstRequestBody['totalItems'];
+  foreach ($firstRequestItems as $firstRequestItem) {
+    array_push($objects, $firstRequestItem);
+  }
+  if ($totalItems > 50) {
+    $skip = 50;
+    $remaining = TRUE;
+    while ($remaining) {
+      $request = engage_request($endpoint, array_merge($args, array(
+        'skip' => $skip
+      )), $method, $body, $headers);
+      $body = $request['body'];
+      $items = $body['items'];
+      foreach ($items as $item) {
+        array_push($objects, $item);
+      }
+      $totalItems = $body['totalItems'];
+      $remaining = $totalItems - $skip;
+      $skip = $totalItems - $remaining;
+    }
+  }
+  return $objects;
+}
 
 // CUP Members
-function cup_events3_function()
+function cup_events_home_function()
 {
   $request = engage_request('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
@@ -105,7 +101,7 @@ function cup_events3_function()
     'take' => '3',
     'skip' => '0'
   ));
-  $items = $request['items'];
+  $items = $request['body']['items'];
   $numOfCols = 3;
   $rowCount = 0;
   $bootstrapColWidth = 12 / $numOfCols;
@@ -135,4 +131,4 @@ function cup_events3_function()
   $card .= '</div>';
   return $card;
 }
-add_shortcode('cup_events3', 'cup_events3_function');
+add_shortcode('cup_events_home', 'cup_events_home_function');
