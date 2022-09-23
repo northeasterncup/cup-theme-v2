@@ -75,21 +75,26 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
       'skip' => '0'
     )
   ), $method, $body, $headers);
-  $totalItems = $baseReq['totalItems'];
-  $take = ENGAGE_PAGE_SIZE;
-  $skip = '0';
-  $remaining = $totalItems;
-  while ($remaining > 0) {
+  $totalItems = $baseReq['totalItems']; // 83
+  $take = ENGAGE_PAGE_SIZE; // 38
+  $skip = 0;
+  $remaining = $totalItems; // 83
+  while ($remaining > 0) { // 83
     $request = engage_request($endpoint, array_merge($args, array(
-      'take' => $take,
-      'skip' => $skip
+      'take' => $take, // 38
+      'skip' => strval($skip) // 0
     )), $method, $body, $headers);
     $items = $request['items'];
-    foreach ($items as $item) {
-      $allItems[] = $item;
+    if (empty($allItems)) {
+      $fixMath = intval($take);
+    } else {
+      $fixMath = 0;
     }
-    $remaining = max(0, $remaining - $skip - $take);
+    $remaining = max(0, $remaining - $skip - $fixMath);
     $skip = $totalItems - $remaining;
+    foreach ($items as $item) {
+      $allItems[] = $item; // adds first 38
+    }
   }
   $response = array(
     'totalItems' => $baseReq['totalItems'],
