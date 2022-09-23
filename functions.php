@@ -120,6 +120,18 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   return $response;
 }
 
+// Compare two event start dates
+function compare_event_dates($a, $b)
+{
+  $t1 = strtotime($a['startsOn']);
+  $t2 = strtotime($b['startsOn']);
+  if ($t1 == $t2) {
+    return 0;
+  } else {
+    return $t1 < $t2 ? 1 : -1;
+  }
+}
+
 // CUP Events
 function cup_events_function()
 {
@@ -128,7 +140,8 @@ function cup_events_function()
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true'
   ));
-  $items = $request['items'];
+  $unsorted_items = $request['items'];
+  $items = usort($unsorted_items, 'cup_events_function');
   $card = '<div class="events">';
   foreach ($items as $item) {
     $card .= '<div class="event-wrapper">';
