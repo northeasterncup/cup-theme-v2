@@ -66,7 +66,13 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $objects = array();
-  $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
+  $firstRequest = engage_request($endpoint, array_merge(
+    $args,
+    array(
+      'take' => ENGAGE_PAGE_SIZE,
+      'skip' => '0'
+    )
+  ), $method, $body, $headers);
   $firstRequestItems = $firstRequest['items'];
   $totalItems = $firstRequest['totalItems'];
   foreach ($firstRequestItems as $firstRequestItem) {
@@ -74,9 +80,10 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
   }
   if ($totalItems > 50) {
     $skip = 50;
-    $remaining = TRUE;
-    while ($remaining) {
+    $remaining = $totalItems - 50;
+    while ($remaining > 0) {
       $request = engage_request($endpoint, array_merge($args, array(
+        'take' => ENGAGE_PAGE_SIZE,
         'skip' => $skip
       )), $method, $body, $headers);
       $items = $request['items'];
