@@ -28,7 +28,7 @@ function bootscore_child_enqueue_styles()
 // Constants
 define('ENGAGE_BASE_URL', 'https://engage-api.campuslabs.com/api/v3.0');
 define('ENGAGE_API_KEY', 'esk_live_f98d79b42f2b22e3a9f9aacdcc4bf758');
-define('ENGAGE_PAGE_SIZE', '25');
+define('ENGAGE_PAGE_SIZE', '3');
 define('CUP_ORGANIZATION_ID', '280350'); // get this using the /organizations/organization endpoint
 define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
 define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
@@ -180,7 +180,7 @@ add_shortcode('cup_events_home_paged', 'cup_events_home_paged_function');
 
 function events_list_function()
 {
-  $request = engage_request('/events/event/', array(
+  $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true'
