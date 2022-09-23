@@ -124,22 +124,25 @@ h6,
 }
 
 // Event Card Styles
-.event-wrapper {
-    flex-grow: 1;
-    flex-basis: 20%;
-    margin: 0 1.5rem 1.5rem 0;
-    padding: 0;
-    position: relative;
-    &:nth-child(4) {
-        margin: 0 0 1.5rem 0;
-    }
-    .event-card {
-        div.card-img-top.event-img {
-            @extend .card-img-top;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            padding-bottom: 60%;
+.events {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    .event-wrapper {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        padding: 0;
+        position: relative;
+        .event-card {
+            div.card-img-top.event-img {
+                @extend .card-img-top;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                padding-bottom: 60%;
+            }
         }
     }
 }

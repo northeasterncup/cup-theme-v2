@@ -129,7 +129,7 @@ function cup_events_function()
     'includeSubmissionIds' => 'true'
   ));
   $items = $request['items'];
-  $card = '<div class="events row">';
+  $card = '<div class="events">';
   foreach ($items as $item) {
     $card .= '<div class="event-wrapper">';
     $card .= '<div class="card event-card">';
