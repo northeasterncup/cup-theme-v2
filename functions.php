@@ -68,34 +68,28 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allItems = array();
-  $take = ENGAGE_PAGE_SIZE;
   $baseReq = engage_request($endpoint, array_merge(
     $args,
     array(
-      'take' => $take,
+      'take' => '0',
       'skip' => '0'
     )
   ), $method, $body, $headers);
-  $baseReqItems = $baseReq['items'];
   $totalItems = $baseReq['totalItems'];
-  foreach ($baseReqItems as $baseReqItem) {
-    $allItems[] = $baseReqItem;
-  }
-  if ($totalItems > $take) {
-    $skip = $take;
-    $remaining = $totalItems - $take;
-    while ($remaining > 0) {
-      $request = engage_request($endpoint, array_merge($args, array(
-        'take' => $take,
-        'skip' => $skip
-      )), $method, $body, $headers);
-      $items = $request['items'];
-      foreach ($items as $item) {
-        $allItems[] = $item;
-      }
-      $remaining = max(0, $remaining - $skip);
-      $skip = $totalItems - $remaining;
+  $take = ENGAGE_PAGE_SIZE;
+  $skip = '0';
+  $remaining = $totalItems;
+  while ($remaining > 0) {
+    $request = engage_request($endpoint, array_merge($args, array(
+      'take' => $take,
+      'skip' => $skip
+    )), $method, $body, $headers);
+    $items = $request['items'];
+    foreach ($items as $item) {
+      $allItems[] = $item;
     }
+    $remaining = max(0, $remaining - $skip - $take);
+    $skip = $totalItems - $remaining;
   }
   $response = array(
     'totalItems' => $baseReq['totalItems'],
@@ -122,7 +116,7 @@ function cup_events_home_function()
       $card .= '<div class="row mb-3 g-3">';
     }
     $rowCount++;
-    $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
+    $card .= '<div class="col-lg-' . $bootstrapColWidth . '">';
     $card .= '<div class="card">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
