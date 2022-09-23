@@ -155,6 +155,9 @@ h6,
     padding-right: 10px
 }
 
-.btn .btn-primary {
-    color: $light;
+.btn-primary {
+    --bs-button-color: $cup-white;
+    --bs-btn-hover-color: $cup-white;
+    --bs-btn-active-color: $cup-white;
+    --bs-btn-disabled-color: $cup-white;
 }
