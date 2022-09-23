@@ -34,6 +34,7 @@ define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
 define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
 
 // Engage Request
+// Using the Engage API, make an HTTP request using the provided parameters.
 function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allArgs = array_merge(array(
@@ -63,20 +64,20 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 }
 
 // Concat Pages
-function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
+function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
-  $objects = array();
-  $firstRequest = engage_request($endpoint, array_merge(
+  $allItems = array();
+  $baseReq = engage_request($endpoint, array_merge(
     $args,
     array(
       'take' => ENGAGE_PAGE_SIZE,
       'skip' => '0'
     )
   ), $method, $body, $headers);
-  $firstRequestItems = $firstRequest['items'];
-  $totalItems = $firstRequest['totalItems'];
-  foreach ($firstRequestItems as $firstRequestItem) {
-    array_push($objects, $firstRequestItem);
+  $baseReqItems = $baseReq['items'];
+  $totalItems = $baseReq['totalItems'];
+  foreach ($baseReqItems as $baseReqItem) {
+    $allItems[] = $baseReqItem;
   }
   if ($totalItems > 50) {
     $skip = 50;
@@ -88,15 +89,15 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
       )), $method, $body, $headers);
       $items = $request['items'];
       foreach ($items as $item) {
-        array_push($objects, $item);
+        $allItems[] = $item;
       }
       $remaining = $remaining - $skip;
       $skip = $totalItems - $remaining;
     }
   }
   $response = array(
-    'totalItems' => $firstRequest['totalItems'],
-    'items' => $objects
+    'totalItems' => $baseReq['totalItems'],
+    'items' => $allItems
   );
   return $response;
 }
