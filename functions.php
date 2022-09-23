@@ -90,7 +90,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
       )), $method, $body, $headers);
       $items = $request['items'];
       foreach ($items as $item) {
-        $allItems = $item;
+        $allItems[] = $item;
       }
       $remaining = $remaining - $skip;
       $skip = $totalItems - $remaining;
