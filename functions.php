@@ -93,7 +93,7 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 //   return $objects;
 // }
 
-// CUP Members
+// CUP Events
 function cup_events_home_function()
 {
   $request = engage_request('/events/event/', array(
