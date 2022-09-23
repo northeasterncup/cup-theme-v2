@@ -166,7 +166,8 @@ function cup_events_home_paged_function()
   $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true'
+    'includeSubmissionIds' => 'true',
+    'endsAfter' => utcTimestamp()
   ));
   $items = $request['items'];
   $numOfCols = 3;
@@ -199,23 +200,3 @@ function cup_events_home_paged_function()
   return $card;
 }
 add_shortcode('cup_events_home_paged', 'cup_events_home_paged_function');
-
-function events_list_function()
-{
-  $request = engage_request_concat('/events/event/', array(
-    'organizationIds' => CUP_ORGANIZATION_ID,
-    'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true',
-    'endsAfter' => utcTimestamp()
-  ));
-  $items = $request['items'];
-  $html = '<div class="events_list">';
-  $html .= '<p>Current timestamp: ' . utcTimestamp() . '</p>';
-  $html .= '<ol class="list-group list-group-numbered">';
-  foreach ($items as $item) {
-    $html .= '<li class="list-group-item">' . $item['name'] . '';
-  }
-  $html .= '</ol></div>';
-  return $html;
-}
-add_shortcode('events_list', 'events_list_function');
