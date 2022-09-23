@@ -125,7 +125,10 @@ h6,
 
 // Event Card Styles
 .event-card {
-    .card-img-top {
+    div.card-img-top {
         @extend .card-img-top;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
     }
 }
