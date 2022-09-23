@@ -142,7 +142,7 @@ function cup_events_function()
     $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
     $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
-      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '?w=500" alt="Event Image"></div>';
+      $card .= '<img src="' . $item['imageUrl'] . '?w=500" class="card-img-top" alt="Event Image">';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
