@@ -126,12 +126,13 @@ function cup_events_function()
   $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true'
+    'includeSubmissionIds' => 'true',
+    'endsAfter' => utcTimestamp()
   ));
   $items = $request['items'];
   $card = '<div class="events row">';
   foreach ($items as $item) {
-    $card .= '<div class="col-12 col-md-6 col-lg-4">';
+    $card .= '<div class="event-wrapper">';
     $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div>';
