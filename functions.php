@@ -58,7 +58,8 @@ function engage_request($endpoint = '/organizations/organization', $args = array
     )
   );
   $body = wp_remote_retrieve_body($request);
-  return $body;
+  $decoded_body = json_decode($body);
+  return $decoded_body;
 }
 
 // // Concat Pages
@@ -102,8 +103,7 @@ function cup_events_home_function()
     'take' => '3',
     'skip' => '0'
   ));
-  $decoded = json_decode($request);
-  $items = $decoded['items'];
+  $items = $request['items'];
   $numOfCols = 3;
   $rowCount = 0;
   $bootstrapColWidth = 12 / $numOfCols;
