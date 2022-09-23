@@ -182,7 +182,7 @@ function cup_events_home_paged_function()
     $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
     $card .= '<div class="card">';
     if (strlen($item['imageUrl']) > 0) {
-      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
+      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '?w=500" alt="Event Image"></div>';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
