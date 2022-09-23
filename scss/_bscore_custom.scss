@@ -127,8 +127,11 @@ h6,
 .event-wrapper {
     flex-grow: 1;
     flex-basis: 25%;
-    margin: 0 30px 30px 0;
+    margin: 0 1.5rem 1.5rem 0;
     position: relative;
+    &:nth-child(4) {
+        margin: 0;
+    }
     .event-card {
         div.card-img-top.event-img {
             @extend .card-img-top;
