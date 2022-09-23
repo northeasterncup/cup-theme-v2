@@ -68,38 +68,44 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allItems = array();
+  $saved = 0;
+
   $baseReq = engage_request($endpoint, array_merge(
     $args,
     array(
-      'take' => '0',
-      'skip' => '0'
+      'take' => ENGAGE_PAGE_SIZE,
+      'skip' => strval($saved)
     )
   ), $method, $body, $headers);
-  $totalItems = $baseReq['totalItems']; // 83
-  $take = ENGAGE_PAGE_SIZE; // 38
-  $skip = 0;
-  $remaining = $totalItems; // 83
-  while ($remaining > 0) { // 83
+
+  $baseReqItems = $baseReq['items'];
+  foreach ($baseReqItems as $baseReqItem) {
+    $allItems[] = $baseReqItem;
+    $saved++;
+  }
+
+  $totalItems = intval($baseReq['totalItems']);
+  $remaining = $totalItems - $saved;
+
+  while ($remaining > 0) {
     $request = engage_request($endpoint, array_merge($args, array(
-      'take' => $take, // 38
-      'skip' => strval($skip) // 0
+      'take' => ENGAGE_PAGE_SIZE,
+      'skip' => strval($saved)
     )), $method, $body, $headers);
     $items = $request['items'];
-    if (empty($allItems)) {
-      $fixMath = intval($take);
-    } else {
-      $fixMath = 0;
-    }
-    $remaining = max(0, $remaining - $skip - $fixMath);
-    $skip = $totalItems - $remaining;
     foreach ($items as $item) {
-      $allItems[] = $item; // adds first 38
+      $allItems[] = $item;
+      $saved++;
     }
+
+    $remaining = $totalItems - $saved;
   }
+
   $response = array(
     'totalItems' => $baseReq['totalItems'],
     'items' => $allItems
   );
+  
   return $response;
 }
 
