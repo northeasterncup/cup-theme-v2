@@ -100,9 +100,7 @@ function cup_events_home_function()
   $request = engage_request('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true',
-    'take' => '3',
-    'skip' => '0'
+    'includeSubmissionIds' => 'true'
   ));
   $items = $request['items'];
   $numOfCols = 3;
