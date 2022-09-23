@@ -121,47 +121,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
 }
 
 // CUP Events
-function cup_events_home_function()
-{
-  $request = engage_request('/events/event/', array(
-    'organizationIds' => CUP_ORGANIZATION_ID,
-    'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true'
-  ));
-  $items = $request['items'];
-  $numOfCols = 3;
-  $rowCount = 0;
-  $bootstrapColWidth = 12 / $numOfCols;
-  $card = '<div class="events">';
-  foreach ($items as $item) {
-    if ($rowCount % $numOfCols == 0) {
-      $card .= '<div class="row mb-3 g-3">';
-    }
-    $rowCount++;
-    $card .= '<div class="col-lg-' . $bootstrapColWidth . '">';
-    $card .= '<div class="card">';
-    if (strlen($item['imageUrl']) > 0) {
-      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '?w=500" alt="Event Image"></div>';
-    }
-    $card .= '<div class="card-body">';
-    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
-    $card .= '<span class="card-text">';
-    if (strlen($item['description']) > 0) {
-      $card .= $item['description'];
-    }
-    $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary mt-3">View Event Details</a>';
-    $card .= '</span></div></div></div>';
-    if ($rowCount % $numOfCols == 0) {
-      $card .= '</div>';
-    }
-  }
-  $card .= '</div>';
-  return $card;
-}
-add_shortcode('cup_events_home', 'cup_events_home_function');
-
-// CUP Events
-function cup_events_home_paged_function()
+function cup_events_function()
 {
   $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
@@ -180,7 +140,7 @@ function cup_events_home_paged_function()
     }
     $rowCount++;
     $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
-    $card .= '<div class="card">';
+    $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '?w=500" alt="Event Image"></div>';
     }
@@ -199,4 +159,4 @@ function cup_events_home_paged_function()
   $card .= '</div>';
   return $card;
 }
-add_shortcode('cup_events_home_paged', 'cup_events_home_paged_function');
+add_shortcode('cup_events', 'cup_events_function');

@@ -122,3 +122,11 @@ h6,
 .mc4wp-alert.mc4wp-error {
     @extend .alert-danger;
 }
+
+// Event Card Styles
+.event-card {
+    .card-img-top {
+        border-top-left-radius: var(--bs-card-inner-border-radius) !important;
+        border-top-right-radius: var(--bs-card-inner-border-radius) !important;
+    }
+}
