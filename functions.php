@@ -30,8 +30,14 @@ define('ENGAGE_BASE_URL', 'https://engage-api.campuslabs.com/api/v3.0');
 define('ENGAGE_API_KEY', 'esk_live_f98d79b42f2b22e3a9f9aacdcc4bf758');
 define('ENGAGE_PAGE_SIZE', '50');
 define('CUP_ORGANIZATION_ID', '280350'); // get this using the /organizations/organization endpoint
-define('UTC_TIME', new DateTime('now', new DateTimeZone('UTC')));
-define('UTC_TIMESTAMP', date_format(UTC_TIME, "c"));
+
+// Returns a UTC timestamp
+function utcTimestamp()
+{
+  $time = new DateTime('now', new DateTimeZone('UTC'));
+  $timestamp = $time->format('c');
+  return $timestamp;
+}
 
 // Engage Request
 // Using the Engage API, make an HTTP request using the provided parameters.
@@ -67,9 +73,11 @@ function engage_request($endpoint = '/organizations/organization', $args = array
 // Concat a paged response from the Engage API into a single array.
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
+  // Initialize variables
   $allItems = array();
   $saved = 0;
 
+  // Submit request to find total number of values
   $baseReq = engage_request($endpoint, array_merge(
     $args,
     array(
@@ -78,15 +86,18 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
     )
   ), $method, $body, $headers);
 
+  // Add the first batch of items
   $baseReqItems = $baseReq['items'];
   foreach ($baseReqItems as $baseReqItem) {
     $allItems[] = $baseReqItem;
     $saved++;
   }
 
+  // Save the total number of items
   $totalItems = intval($baseReq['totalItems']);
   $remaining = $totalItems - $saved;
 
+  // Iterate through additional pages
   while ($remaining > 0) {
     $request = engage_request($endpoint, array_merge($args, array(
       'take' => ENGAGE_PAGE_SIZE,
@@ -101,11 +112,11 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
     $remaining = $totalItems - $saved;
   }
 
+  // Put response into array
   $response = array(
     'totalItems' => $baseReq['totalItems'],
     'items' => $allItems
   );
-
   return $response;
 }
 
@@ -195,11 +206,11 @@ function events_list_function()
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true',
-    'endsAfter' => UTC_TIMESTAMP
+    'endsAfter' => utcTimestamp()
   ));
   $items = $request['items'];
   $html = '<div class="events_list">';
-  $html .= '<p>Current timestamp: ' . UTC_TIMESTAMP . '</p>';
+  $html .= '<p>Current timestamp: ' . utcTimestamp() . '</p>';
   $html .= '<ol class="list-group list-group-numbered">';
   foreach ($items as $item) {
     $html .= '<li class="list-group-item">' . $item['name'] . '';
