@@ -87,7 +87,11 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
       $skip = $totalItems - $remaining;
     }
   }
-  return $objects;
+  $response = array(
+    'totalItems' => $firstRequest['totalItems'],
+    'items' => $objects
+  );
+  return $response;
 }
 
 // CUP Events
@@ -131,3 +135,45 @@ function cup_events_home_function()
   return $card;
 }
 add_shortcode('cup_events_home', 'cup_events_home_function');
+
+// CUP Events
+function cup_events_home_paged_function()
+{
+  $request = concat_pages('/events/event/', array(
+    'organizationIds' => CUP_ORGANIZATION_ID,
+    'excludeCoHosts' => 'false',
+    'includeSubmissionIds' => 'true',
+    'take' => '3',
+    'skip' => '0'
+  ));
+  $items = $request['items'];
+  $numOfCols = 3;
+  $rowCount = 0;
+  $bootstrapColWidth = 12 / $numOfCols;
+  $card = '<div class="events">';
+  foreach ($items as $item) {
+    if ($rowCount % $numOfCols == 0) {
+      $card .= '<div class="row mb-3 g-3">';
+    }
+    $rowCount++;
+    $card .= '<div class="col col-lg-' . $bootstrapColWidth . '">';
+    $card .= '<div class="card">';
+    if (strlen($item['imageUrl']) > 0) {
+      $card .= '<div class="card-img-top"><img src="' . $item['imageUrl'] . '" alt="Event Image"></div>';
+    }
+    $card .= '<div class="card-body">';
+    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
+    $card .= '<span class="card-text">';
+    if (strlen($item['description']) > 0) {
+      $card .= $item['description'];
+    }
+    $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary mt-3">View Event Details</a>';
+    $card .= '</span></div></div></div>';
+    if ($rowCount % $numOfCols == 0) {
+      $card .= '</div>';
+    }
+  }
+  $card .= '</div>';
+  return $card;
+}
+add_shortcode('cup_events_home_paged', 'cup_events_home_paged_function');
