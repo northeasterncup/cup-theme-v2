@@ -197,5 +197,6 @@ function events_list_function()
     $html .= '<li class="list-group-item">' . $item['name'] . '';
   }
   $html .= '</ol></div>';
+  return $html;
 }
 add_shortcode('events_list', 'events_list_function');
