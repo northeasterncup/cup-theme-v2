@@ -63,7 +63,8 @@ function engage_request($endpoint = '/organizations/organization', $args = array
   return $decoded_body;
 }
 
-// Concat Pages
+// Engage Request Concat
+// Concat a paged response from the Engage API into a single array.
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
   $allItems = array();
@@ -77,7 +78,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   $baseReqItems = $baseReq['items'];
   $totalItems = $baseReq['totalItems'];
   foreach ($baseReqItems as $baseReqItem) {
-    array_push($allItems, $baseReqItem);
+    $allItems[] = $baseReqItem;
   }
   if ($totalItems > 50) {
     $skip = 50;
@@ -89,7 +90,7 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
       )), $method, $body, $headers);
       $items = $request['items'];
       foreach ($items as $item) {
-        array_push($allItems, $item);
+        $allItems = $item;
       }
       $remaining = $remaining - $skip;
       $skip = $totalItems - $remaining;
@@ -145,7 +146,7 @@ add_shortcode('cup_events_home', 'cup_events_home_function');
 // CUP Events
 function cup_events_home_paged_function()
 {
-  $request = concat_pages('/events/event/', array(
+  $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true',
