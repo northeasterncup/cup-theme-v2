@@ -61,36 +61,36 @@ function engage_request($endpoint = '/organizations/organization', $args = array
   return $body;
 }
 
-// Concat Pages
-function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
-{
-  $objects = array();
-  $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
-  $firstRequestDecoded = json_decode($firstRequest);
-  $firstRequestItems = $firstRequestDecoded['items'];
-  $totalItems = $firstRequestDecoded['totalItems'];
-  foreach ($firstRequestItems as $firstRequestItem) {
-    array_push($objects, $firstRequestItem);
-  }
-  if ($totalItems > 50) {
-    $skip = 50;
-    $remaining = TRUE;
-    while ($remaining) {
-      $request = engage_request($endpoint, array_merge($args, array(
-        'skip' => $skip
-      )), $method, $body, $headers);
-      $decoded = json_decode($request);
-      $items = $decoded['items'];
-      foreach ($items as $item) {
-        array_push($objects, $item);
-      }
-      $totalItems = $decoded['totalItems'];
-      $remaining = $totalItems - $skip;
-      $skip = $totalItems - $remaining;
-    }
-  }
-  return $objects;
-}
+// // Concat Pages
+// function concat_pages($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
+// {
+//   $objects = array();
+//   $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
+//   $firstRequestDecoded = json_decode($firstRequest);
+//   $firstRequestItems = $firstRequestDecoded['items'];
+//   $totalItems = $firstRequestDecoded['totalItems'];
+//   foreach ($firstRequestItems as $firstRequestItem) {
+//     array_push($objects, $firstRequestItem);
+//   }
+//   if ($totalItems > 50) {
+//     $skip = 50;
+//     $remaining = TRUE;
+//     while ($remaining) {
+//       $request = engage_request($endpoint, array_merge($args, array(
+//         'skip' => $skip
+//       )), $method, $body, $headers);
+//       $decoded = json_decode($request);
+//       $items = $decoded['items'];
+//       foreach ($items as $item) {
+//         array_push($objects, $item);
+//       }
+//       $totalItems = $decoded['totalItems'];
+//       $remaining = $totalItems - $skip;
+//       $skip = $totalItems - $remaining;
+//     }
+//   }
+//   return $objects;
+// }
 
 // CUP Members
 function cup_events_home_function()
