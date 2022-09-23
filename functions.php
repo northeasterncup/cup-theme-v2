@@ -90,7 +90,7 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
       foreach ($items as $item) {
         array_push($objects, $item);
       }
-      $remaining = $totalItems - $skip;
+      $remaining = $remaining - $skip;
       $skip = $totalItems - $remaining;
     }
   }
