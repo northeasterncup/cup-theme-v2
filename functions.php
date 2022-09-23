@@ -199,7 +199,7 @@ function events_list_function()
   ));
   $items = $request['items'];
   $html = '<div class="events_list">';
-  $html .= UTC_TIMESTAMP;
+  $html .= '<p>Current timestamp: ' . UTC_TIMESTAMP . '</p>';
   $html .= '<ol class="list-group list-group-numbered">';
   foreach ($items as $item) {
     $html .= '<li class="list-group-item">' . $item['name'] . '';
