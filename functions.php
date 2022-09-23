@@ -57,7 +57,8 @@ function engage_request($endpoint = '/organizations/organization', $args = array
       'body' => $body
     )
   );
-  return $request;
+  $body = wp_remote_retrieve_body($request);
+  return $body;
 }
 
 // Concat Pages
@@ -65,9 +66,9 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
 {
   $objects = array();
   $firstRequest = engage_request($endpoint, $args, $method, $body, $headers);
-  $firstRequestBody = $firstRequest['body'];
-  $firstRequestItems = $firstRequestBody['items'];
-  $totalItems = $firstRequestBody['totalItems'];
+  $firstRequestDecoded = json_decode($firstRequest);
+  $firstRequestItems = $firstRequestDecoded['items'];
+  $totalItems = $firstRequestDecoded['totalItems'];
   foreach ($firstRequestItems as $firstRequestItem) {
     array_push($objects, $firstRequestItem);
   }
@@ -78,12 +79,12 @@ function concat_pages($endpoint = '/organizations/organization', $args = array()
       $request = engage_request($endpoint, array_merge($args, array(
         'skip' => $skip
       )), $method, $body, $headers);
-      $body = $request['body'];
-      $items = $body['items'];
+      $decoded = json_decode($request);
+      $items = $decoded['items'];
       foreach ($items as $item) {
         array_push($objects, $item);
       }
-      $totalItems = $body['totalItems'];
+      $totalItems = $decoded['totalItems'];
       $remaining = $totalItems - $skip;
       $skip = $totalItems - $remaining;
     }
@@ -101,8 +102,8 @@ function cup_events_home_function()
     'take' => '3',
     'skip' => '0'
   ));
-  $request_body = json_decode($request['body']);
-  $items = $request_body['items'];
+  $decoded = json_decode($request);
+  $items = $decoded['items'];
   $numOfCols = 3;
   $rowCount = 0;
   $bootstrapColWidth = 12 / $numOfCols;
