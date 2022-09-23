@@ -132,11 +132,7 @@ function cup_events_function()
   $items = $request['items'];
   $card = '<div class="events row">';
   foreach ($items as $item) {
-    if ($rowCount % $numOfCols == 0) {
-      $card .= '<div class="row mb-3 g-3">';
-    }
-    $rowCount++;
-    $card .= '<div class="col col-4 col-md-6 col-sm-12">';
+    $card .= '<div class="col-4 col-md-6 col-sm-12">';
     $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
       $card .= '<div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div>';
