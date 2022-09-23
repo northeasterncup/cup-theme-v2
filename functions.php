@@ -194,10 +194,12 @@ function events_list_function()
   $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true'
+    'includeSubmissionIds' => 'true',
+    'endsAfter' => UTC_TIMESTAMP
   ));
   $items = $request['items'];
   $html = '<div class="events_list">';
+  $html .= UTC_TIMESTAMP;
   $html .= '<ol class="list-group list-group-numbered">';
   foreach ($items as $item) {
     $html .= '<li class="list-group-item">' . $item['name'] . '';
