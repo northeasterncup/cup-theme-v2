@@ -138,7 +138,7 @@ function cup_events_function()
     $card .= '<div class="event-wrapper">';
     $card .= '<div class="card event-card">';
     if (strlen($item['imageUrl']) > 0) {
-      $card .= '<div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div>';
+      $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank"><div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div></a>';
     }
     $card .= '<div class="card-body">';
     $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
