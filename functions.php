@@ -126,8 +126,7 @@ function cup_events_function()
   $request = engage_request_concat('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true',
-    'endsAfter' => utcTimestamp()
+    'includeSubmissionIds' => 'true'
   ));
   $items = $request['items'];
   $card = '<div class="events row">';
