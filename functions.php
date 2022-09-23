@@ -180,7 +180,7 @@ add_shortcode('cup_events_home_paged', 'cup_events_home_paged_function');
 
 function events_list_function()
 {
-  $request = engage_request_concat('/events/event/', array(
+  $request = engage_request('/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true'
