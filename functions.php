@@ -120,13 +120,6 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   return $response;
 }
 
-// Compare two event start dates
-function compare_event_dates($a, $b)
-{
-  if ($a['startsOn'] == $b['startsOn']) return 0;
-  return strtotime($a['startsOn']) - strtotime($b['startsOn']);
-}
-
 // CUP Events
 function cup_events_function()
 {
@@ -136,7 +129,10 @@ function cup_events_function()
     'includeSubmissionIds' => 'true'
   ));
   $items = $request['items'];
-  usort($items, 'compare_event_dates');
+  usort($items, function ($a, $b) {
+    if ($a['startsOn'] == $b['startsOn']) return 0;
+    return strtotime($b['startsOn']) - strtotime($a['startsOn']);
+  });
   $card = '<div class="events">';
   foreach ($items as $item) {
     $card .= '<div class="event-wrapper">';
