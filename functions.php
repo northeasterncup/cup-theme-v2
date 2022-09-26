@@ -231,7 +231,7 @@ function home_events_function()
       $html .= '</span></div>';
 
       // event button
-      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="btn btn-primary bi bi-pe-2 bi-box-arrow-up-right mt-3" target="_blank">';
+      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="btn btn-primary bi bi-pe-2 bi-box-arrow-up-right mt-3 event-button" target="_blank">';
       $html .= 'Learn More';
       $html .= '</a>';
 
