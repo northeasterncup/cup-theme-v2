@@ -222,12 +222,12 @@ function home_events_function()
 
       // event date
       $html .= '<div class="event-date pb-1">';
-      $html .= '<div class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTimeString;
+      $html .= '<span class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTimeString;
       $html .= '</span></div>';
 
       // event location
       $html .= '<div class="event-location">';
-      $html .= '<div class="bi bi-pe-1 bi-geo-alt-fill">' . $item['address']['name'];
+      $html .= '<span class="bi bi-pe-1 bi-geo-alt-fill">' . $item['address']['name'];
       $html .= '</span></div>';
 
       // event button
