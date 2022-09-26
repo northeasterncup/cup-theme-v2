@@ -194,9 +194,9 @@ function home_events_function()
     // code for each item (column)
     foreach ($items as $item) {
       // Convert start time format
-      $eventStartTime = new DateTime($item['startsOn'], new DateTimeZone('UTC'));
-      $eventStartTime->setTimezone(new DateTimeZone('America/New_York'));
-      $eventStartTime->format('l, F j \a\t g\:iA T');
+      $eventStartTimeObject = new DateTimeImmutable($item['startsOn'], new DateTimeZone('UTC'));
+      $eventStartTimeEST = $eventStartTimeObject->setTimezone(new DateTimeZone('America/New_York'));
+      $eventStartTimeString = $eventStartTimeEST->format('l, F j \a\t g\:iA T');
 
       // event wrapper HTML
       $html .= '<div class="event-wrapper col-12 col-md-4">';
@@ -222,7 +222,7 @@ function home_events_function()
 
       // event date
       $html .= '<div class="event-date pb-1">';
-      $html .= '<div class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTime;
+      $html .= '<div class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTimeString;
       $html .= '</span></div>';
 
       // event location
