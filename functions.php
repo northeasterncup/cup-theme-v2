@@ -187,15 +187,18 @@ function home_events_function()
     $html .= '<div class="alert alert-info no-events">';
     $html .= 'There are no scheduled upcoming events just yet. Stay tuned!';
     $html .= '</div></div>';
-  }
-
-
-  if ($totalItems > 0) {
+  } elseif ($totalItems > 0) {
     // Start HTML Row
     $html = '<div class="events home-events row g-3">';
 
-    // HTML for each item (column)
+    // code for each item (column)
     foreach ($items as $item) {
+      // Convert start time format
+      $eventStartTime = new DateTime($item['startsOn'], new DateTimeZone('UTC'));
+      $eventStartTime->setTimezone(new DateTimeZone('America/New_York'));
+      $eventStartTime->format('l, F j \a\t g\:iA T');
+
+      // event wrapper HTML
       $html .= '<div class="event-wrapper col-12 col-md-4">';
       $html .= '<div class="card border-dark event-card">';
 
@@ -215,11 +218,11 @@ function home_events_function()
       $html .= '</h3></a>';
 
       // event text
-      $html .= '<span class="card-text event-text">';
+      $html .= '<div class="card-text event-text">';
 
       // event date
       $html .= '<div class="event-date pb-1">';
-      $html .= '<div class="bi bi-pe-1 bi-calendar2-heart">' . $item['startsOn'];
+      $html .= '<div class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTime;
       $html .= '</span></div>';
 
       // event location
@@ -232,12 +235,15 @@ function home_events_function()
       $html .= 'Learn More';
       $html .= '</a>';
 
-      // closing tags
-      $html .= '</div></div></div></div>';
+      // closing tags for event body, card, and wrapper
+      $html .= '</div></div></div';
     }
 
-    // return the html
-    return $html;
+    // row closing tag
+    $html .= '</div>';
   }
+
+  // return the html
+  return $html;
 }
 add_shortcode('home_events', 'home_events_function');
