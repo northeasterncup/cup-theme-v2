@@ -69,6 +69,21 @@ function engage_request($endpoint = '/organizations/organization', $args = array
   return $decoded_body;
 }
 
+// Cached Engage Request
+// Make a request to the Engage API, or return a previously cached response.
+function engage_request_cached($cacheName, $cacheExpires = 60, $endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
+{
+  // Get any existing copy of our cached engage request
+  if (false === ($request = get_transient($cacheName))) {
+    // If a cached value does not exist, return the value of a new request and save that value as a new transient
+    $request = engage_request($endpoint, $args, $method, $body, $headers);
+    set_transient($cacheName, $request, $cacheExpires);
+  }
+
+  // Return the cached or new request value
+  return $request;
+}
+
 // Engage Request Concat
 // Concat a paged response from the Engage API into a single array.
 function engage_request_concat($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
@@ -120,10 +135,25 @@ function engage_request_concat($endpoint = '/organizations/organization', $args 
   return $response;
 }
 
+// Cached Concatenated Engage Request
+// Make a request to the Engage API and concatenate paged values, or return a previously cached response.
+function engage_request_concat_cached($cacheName, $cacheExpires = 60, $endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
+{
+  // Get any existing copy of our cached engage request
+  if (false === ($request = get_transient($cacheName))) {
+    // If a cached value does not exist, return the value of a new request and save that value as a new transient
+    $request = engage_request_concat($endpoint, $args, $method, $body, $headers);
+    set_transient($cacheName, $request, $cacheExpires);
+  }
+
+  // Return the cached or new request value
+  return $request;
+}
+
 // CUP Events
 function cup_events_function()
 {
-  $request = engage_request_concat('/events/event/', array(
+  $request = engage_request_concat_cached('cup_events', 60, '/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'excludeCoHosts' => 'false',
     'includeSubmissionIds' => 'true'
@@ -159,7 +189,7 @@ add_shortcode('cup_events', 'cup_events_function');
 function home_events_function()
 {
   // Make the request for upcoming events
-  $request = engage_request('/events/event/', array(
+  $request = engage_request_cached('homepage_events', 60, '/events/event/', array(
     'organizationIds' => CUP_ORGANIZATION_ID,
     'endsAfter' => utcTimestamp(),
     'excludeCoHosts' => 'false',
