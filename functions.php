@@ -181,15 +181,18 @@ function home_events_function()
     $totalItems = 3;
   }
 
-  // Show an alert if no upcoming events are scheduled
+  // Start HTML variable
+  $html = '';
+
+  // Show an alert if no upcoming events are scheduled, or show events
   if ($totalItems <= 0) {
-    $html = '<div class="events home-events">';
+    $html .= '<div class="events home-events">';
     $html .= '<div class="alert alert-info no-events">';
     $html .= 'There are no scheduled upcoming events just yet. Stay tuned!';
     $html .= '</div></div>';
   } elseif ($totalItems > 0) {
-    // Start HTML Row
-    $html = '<div class="events home-events row g-3">';
+    // Start events row
+    $html .= '<div class="events home-events row g-3">';
 
     // code for each item (column)
     foreach ($items as $item) {
@@ -236,7 +239,7 @@ function home_events_function()
       $html .= '</a>';
 
       // closing tags for event body, card, and wrapper
-      $html .= '</div></div></div';
+      $html .= '</div></div></div>';
     }
 
     // row closing tag
