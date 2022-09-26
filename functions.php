@@ -233,17 +233,18 @@ function home_events_function()
       $html .= '</span></div>';
 
       // event location
-      $html .= '<div class="event-location">';
+      $html .= '<div class="event-location pb-3">';
       $html .= '<span class="bi bi-pe-1 bi-geo-alt-fill">' . $item['address']['name'];
       $html .= '</span></div>';
 
       // event button
-      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="btn btn-primary bi bi-pe-2 bi-box-arrow-up-right mt-3 event-button" target="_blank">';
+      $html .= '<div class="event-button">';
+      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="btn btn-primary bi bi-pe-2 bi-box-arrow-up-right" target="_blank">';
       $html .= 'Learn More';
-      $html .= '</a>';
+      $html .= '</a></div>';
 
-      // closing tags for event body, card, and wrapper
-      $html .= '</div></div></div>';
+      // closing tags for event text, body, card, and wrapper
+      $html .= '</div></div></div></div>';
       $html .= '<div class="after-event"></div>';
     }
 
