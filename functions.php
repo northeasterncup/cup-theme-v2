@@ -233,18 +233,7 @@ function home_events_function()
       $html .= '</a>';
 
       // closing tags
-      $html .= '</div></div></div>';
-
-      // add additional column if only one or two events
-      if ($totalItems == 1 || $totalItems == 2) {
-        $html .= '<div class="event-wrapper col-12 col-md-4"></div>';
-      }
-
-      // add additional column if only one event
-      if ($totalItems == 1) {
-        $html .= '<div class="event-wrapper col-12 col-md-4"></div>';
-      }
-      $html .= '</div>';
+      $html .= '</div></div></div></div>';
     }
 
     // return the html
