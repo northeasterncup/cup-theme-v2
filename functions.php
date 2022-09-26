@@ -196,7 +196,7 @@ function home_events_function()
 
     // HTML for each item (column)
     foreach ($items as $item) {
-      $html .= '<div class="event-wrapper col-12 col-md-6 col-lg-4">';
+      $html .= '<div class="event-wrapper col-12 col-md-4">';
       $html .= '<div class="card border-dark event-card">';
 
       // event image if there is one
@@ -237,12 +237,12 @@ function home_events_function()
 
       // add additional column if only one or two events
       if ($totalItems == 1 || $totalItems == 2) {
-        $html .= '<div class="event-wrapper col-12 col-md-6 col-lg-4"></div>';
+        $html .= '<div class="event-wrapper col-12 col-md-4"></div>';
       }
 
       // add additional column if only one event
       if ($totalItems == 1) {
-        $html .= '<div class="event-wrapper col-12 col-md-6 col-lg-4"></div>';
+        $html .= '<div class="event-wrapper col-12 col-md-4"></div>';
       }
       $html .= '</div>';
     }
