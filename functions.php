@@ -150,40 +150,6 @@ function engage_request_concat_cached($cacheName, $cacheExpires = 60, $endpoint 
   return $request;
 }
 
-// CUP Events
-function cup_events_function()
-{
-  $request = engage_request_concat_cached('cup_events', 60, '/events/event/', array(
-    'organizationIds' => CUP_ORGANIZATION_ID,
-    'excludeCoHosts' => 'false',
-    'includeSubmissionIds' => 'true'
-  ));
-  $items = $request['items'];
-  usort($items, function ($a, $b) {
-    if ($a['startsOn'] == $b['startsOn']) return 0;
-    return strtotime($b['startsOn']) - strtotime($a['startsOn']);
-  });
-  $card = '<div class="events">';
-  foreach ($items as $item) {
-    $card .= '<div class="event-wrapper">';
-    $card .= '<div class="card event-card">';
-    if (strlen($item['imageUrl']) > 0) {
-      $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank"><div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');"></div></a>';
-    }
-    $card .= '<div class="card-body">';
-    $card .= '<h3 class="card-title">' . $item['name'] . '</h3>';
-    $card .= '<span class="card-text">';
-    if (strlen($item['description']) > 0) {
-      $card .= $item['description'];
-    }
-    $card .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank" class="btn btn-primary mt-3">View Event Details</a>';
-    $card .= '</span></div></div></div>';
-  }
-  $card .= '</div>';
-  return $card;
-}
-add_shortcode('cup_events', 'cup_events_function');
-
 // Homepage Events
 // Display the three closest upcoming events. For use on the homepage.
 function home_events_function()
