@@ -186,15 +186,12 @@ function home_events_function()
 
   // Show an alert if no upcoming events are scheduled, or show events
   if ($totalItems <= 0) {
-    $html .= '<div class="before-alert"></div>';
     $html .= '<div class="events home-events">';
     $html .= '<div class="alert alert-info no-events">';
     $html .= 'There are no scheduled upcoming events just yet. Stay tuned!';
     $html .= '</div></div>';
-    $html .= '<div class="after-alert"></div>';
   } elseif ($totalItems > 0) {
     // Start events row
-    $html .= '<div class="before-row"></div>';
     $html .= '<div class="events home-events row g-3">';
 
     // code for each item (column)
@@ -205,13 +202,12 @@ function home_events_function()
       $eventStartTimeString = $eventStartTimeEST->format('l, F j \a\t g\:iA T');
 
       // event wrapper HTML
-      $html .= '<div class="before-event"></div>';
       $html .= '<div class="event-wrapper col-12 col-md-4">';
       $html .= '<div class="card border-dark event-card">';
 
       // event image if there is one
       if (strlen($item['imageUrl']) > 0) {
-        $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank">';
+        $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="event-img-link" target="_blank">';
         $html .= '<div role="img" aria-label="Image Uploaded for Event Cover Photo" alt ="Image Uploaded for Event Cover Photo" class="card-img-top event-img border-bottom border-dark" style="background-image: url(\'' . $item['imageUrl'] . '?preset=large-w\');">';
         $html .= '</div></a>';
       }
@@ -220,7 +216,7 @@ function home_events_function()
       $html .= '<div class="card-body event-body">';
 
       // event title
-      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" target="_blank">';
+      $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $item['id'] . '" class="event-title-link" target="_blank">';
       $html .= '<h3 class="card-title event-title">' . $item['name'];
       $html .= '</h3></a>';
 
@@ -245,12 +241,10 @@ function home_events_function()
 
       // closing tags for event text, body, card, and wrapper
       $html .= '</div></div></div></div>';
-      $html .= '<div class="after-event"></div>';
     }
 
     // row closing tag
     $html .= '</div>';
-    $html .= '<div class="after-row"></div>';
   }
 
   // return the html
