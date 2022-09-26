@@ -8,6 +8,7 @@
 // Change HTML color
 html {
     background-color: $dark;
+    --cup-white: #faf5ec;
 }
 
 div#content {
@@ -143,8 +144,8 @@ h6,
 }
 
 .btn-primary {
-    --bs-button-color: $cup-white;
-    --bs-btn-hover-color: $cup-white;
-    --bs-btn-active-color: $cup-white;
-    --bs-btn-disabled-color: $cup-white;
+    --bs-button-color: --cup-white;
+    --bs-btn-hover-color: --cup-white;
+    --bs-btn-active-color: --cup-white;
+    --bs-btn-disabled-color: --cup-white;
 }
