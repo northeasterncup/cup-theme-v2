@@ -155,6 +155,7 @@ function cup_events_function()
 add_shortcode('cup_events', 'cup_events_function');
 
 // Homepage Events
+// Display the three closest upcoming events. For use on the homepage.
 function home_events_function()
 {
   // Make the request for upcoming events
