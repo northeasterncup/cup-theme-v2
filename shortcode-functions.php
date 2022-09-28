@@ -5,7 +5,7 @@
 function home_events_function()
 {
     // Make the request for upcoming events
-    $request = engage_request_cached('homepage_events', 60, '/events/event/', array(
+    $request = engage_request_cached('homepage_events', 300, '/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
         'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
