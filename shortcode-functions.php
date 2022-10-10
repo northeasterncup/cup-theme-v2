@@ -103,14 +103,8 @@ add_shortcode('home_events', 'home_events_function');
 // Display cards for all upcoming events.
 function upcoming_events_function()
 {
-    // Start output buffering
-    ob_start();
-
-    // Generate an instance id
-    $eid = uniqid('upcoming-events-');
-
     // Make the request for upcoming events
-    $request = engage_request_cached($eid, 300, '/events/event/', array(
+    $request = engage_request_cached('upcoming_events', 300, '/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
         'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
@@ -135,13 +129,13 @@ function upcoming_events_function()
 
     // Show an alert if no upcoming events are scheduled, or show events
     if ($totalItems <= 0) {
-        $html .= '<div class="events upcoming-events ' . $eid . '">';
+        $html .= '<div class="events upcoming-events">';
         $html .= '<div class="alert alert-info no-events">';
         $html .= 'There are no scheduled upcoming events just yet. Stay tuned!';
         $html .= '</div></div>';
     } elseif ($totalItems > 0) {
         // All upcoming events wrapper
-        $html .= '<div class="events upcoming-events ' . $eid . '">';
+        $html .= '<div class="events upcoming-events">';
         // Cycle through each row
         foreach ($items as $row) {
             // Start new row
@@ -201,10 +195,7 @@ function upcoming_events_function()
         // All events closing tag
         $html .= '</div>';
     }
-    // echo the html
-    echo $html;
-
-    // Return the output buffered items
-    return ob_get_clean();
+    // return the html
+    return $html;
 }
 add_shortcode('upcoming_events', 'upcoming_events_function');
