@@ -217,9 +217,9 @@ function past_events_function()
     $totalItems = intval($request['totalItems']);
 
     // Sort the returned events by start date/time
-    usort($items, function ($b, $a) {
+    usort($items, function ($a, $b) {
         if ($a['startsOn'] == $b['startsOn']) return 0;
-        return strtotime($a['startsOn']) - strtotime($b['startsOn']);
+        return strtotime($b['startsOn']) - strtotime($a['startsOn']);
     });
 
     // Split the array of events into chunks of 3
@@ -236,7 +236,7 @@ function past_events_function()
         $html .= '</div></div>';
     } elseif ($totalItems > 0) {
         // All upcoming events wrapper
-        $html .= '<div class="events-testcache past-events">';
+        $html .= '<div class="events past-events">';
         // Cycle through each row
         foreach ($items as $row) {
             // Start new row
