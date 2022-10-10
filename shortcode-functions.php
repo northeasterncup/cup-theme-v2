@@ -103,11 +103,18 @@ add_shortcode('home_events', 'home_events_function');
 // Display cards for all upcoming events.
 function upcoming_events_function()
 {
+    // // Make the request for upcoming events
+    // $request = engage_request_cached('upcoming_events', 300, '/events/event/', array(
+    //     'organizationIds' => CUP_ORGANIZATION_ID,
+    //     'endsAfter' => utcTimestamp(),
+    //     'excludeCoHosts' => 'false',
+    //     'includeSubmissionIds' => 'true'
+    // ));
+
     // Make the request for upcoming events
-    $request = engage_request_cached('upcoming_events', 10, '/events/event/', array(
+    $request = engage_request('/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
-        // 'endsAfter' => utcTimestamp(),
-        'endsAfter' => '2019-01-01',
+        'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
