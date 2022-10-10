@@ -195,5 +195,7 @@ function upcoming_events_function()
         // All events closing tag
         $html .= '</div>';
     }
+    // return the html
+    return $html;
 }
 add_shortcode('upcoming_events', 'upcoming_events_function');
