@@ -216,9 +216,9 @@ function past_events_function()
     $items = $request['items'];
     $totalItems = intval($request['totalItems']);
 
-    // Sort the returned events by start date/time
+    // Sort the returned events in descending order by start date/time
     usort($items, function ($a, $b) {
-        if ($a['startsOn'] == $b['startsOn']) return 0;
+        if ($b['startsOn'] == $a['startsOn']) return 0;
         return strtotime($b['startsOn']) - strtotime($a['startsOn']);
     });
 
