@@ -104,7 +104,7 @@ add_shortcode('home_events', 'home_events_function');
 function upcoming_events_function()
 {
     // Make the request for upcoming events
-    $request = engage_request_cached('upcoming_events', 300, '/events/event/', array(
+    $request = engage_request_cached('upcoming_events', 10, '/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
         // 'endsAfter' => utcTimestamp(),
         'endsAfter' => '2019-01-01',
