@@ -147,7 +147,7 @@ function upcoming_events_function()
         // Cycle through each row
         foreach ($items as $row) {
             // Start new row
-            $html .= '<div class="event-row row g-3">';
+            $html .= '<div class="event-row row g-3 pb-3">';
 
             foreach ($row as $event) {
                 // Convert start time format
