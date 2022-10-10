@@ -205,7 +205,7 @@ add_shortcode('upcoming_events', 'upcoming_events_function');
 function past_events_function()
 {
     // Make the request for upcoming events
-    $request = engage_request_cached('past_events', 300, '/events/event/', array(
+    $request = engage_request_cached('past_events', 1, '/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
         'endsBefore' => utcTimestamp(),
         'excludeCoHosts' => 'false',
@@ -236,7 +236,7 @@ function past_events_function()
         $html .= '</div></div>';
     } elseif ($totalItems > 0) {
         // All upcoming events wrapper
-        $html .= '<div class="events past-events">';
+        $html .= '<div class="events-testcache past-events">';
         // Cycle through each row
         foreach ($items as $row) {
             // Start new row
