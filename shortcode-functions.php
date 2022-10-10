@@ -114,7 +114,7 @@ function upcoming_events_function()
     // Make the request for upcoming events
     $request = engage_request('/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
-        'endsAfter' => utcTimestamp(),
+        'endsAfter' => '2020-01-01',
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
