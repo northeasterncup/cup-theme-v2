@@ -106,7 +106,7 @@ function upcoming_events_function()
     // Make the request for upcoming events
     $request = engage_request_cached('upcoming_events', 300, '/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
-        'endsAfter' => utcTimestamp(),
+        // 'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
