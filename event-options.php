@@ -49,11 +49,16 @@ add_action('admin_init', 'engage_admin_init');
 // Action function for the above hook
 function engage_admin_init()
 {
-    unregister_setting('engage', 'engage_options');
-    unregister_setting('engage_settings', 'engage_base_url');
 
     // Register API Key setting
     register_setting('engage_settings', 'engage_api_key', array(
+        'type' => 'string',
+        'show_in_rest' => FALSE,
+        'default' => NULL
+    ));
+
+    // Register CUP Organization ID setting
+    register_setting('engage_settings', 'engage_cup_org_id', array(
         'type' => 'string',
         'show_in_rest' => FALSE,
         'default' => NULL
@@ -91,6 +96,15 @@ function engage_admin_init()
         'engage_api'
     );
 
+    // Register API Key field
+    add_settings_field(
+        'engage_cup_org_id',
+        'CUP Organization ID',
+        'engage_setting_cup_org_id',
+        'engage',
+        'engage_api'
+    );
+
     // Register Event Cutoff field
     add_settings_field(
         'engage_event_cutoff',
@@ -104,7 +118,7 @@ function engage_admin_init()
 // Callback for the API settings section text
 function engage_api_text()
 {
-    echo '<p>Settings used to pull events from the Engage API.</p>';
+    echo '<p>Settings used to pull events from the Engage API. Documentation from CampusLabs can be found <a href="">here</a>.</p>';
 }
 
 // Callback for the Event Display settings section text
@@ -121,6 +135,18 @@ function engage_setting_api_key()
     <input type="text" name="engage_api_key" size="60" placeholder="e.g. esk_test_3ef94b252b22047586dc53307a10580e" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
         The API key received from a CSI admin with at minimum <code>GET</code> access to the <code>/events</code> endpoint. This should not change unless an API key expires.
+    </p>
+<?
+}
+
+// Callback for the CUP Organization ID settings field
+function engage_setting_cup_org_id()
+{
+    $setting = get_option('engage_cup_org_id');
+?>
+    <input type="text" name="engage_cup_org_id" size="10" placeholder="e.g. 202334" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+    <p class="description">
+        CUP's Organization ID. Will almost certainly never change. Can be found by doing a <code>GET</code> request to the <code>/organizations/organization</code> endpoint.
     </p>
 <?
 }
