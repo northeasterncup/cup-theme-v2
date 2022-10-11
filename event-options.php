@@ -31,7 +31,7 @@ function engage_options_page()
 
     // Engage Settings Form
     echo '<div class="notice notice-warning is-dismissible"><p>';
-    echo 'All settings must be set for the event shortcodes to properly behave.';
+    echo 'All settings must be set for all shortcodes to properly display.';
     echo '</p></div>';
     echo '<form method="post" action="options.php">';
     settings_fields('engage_settings');
