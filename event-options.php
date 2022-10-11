@@ -86,7 +86,7 @@ function engage_setting_base_url()
 {
     $setting = get_option('engage_base_url');
 ?>
-    <input type="url" name="engage_base_url" pattern="https://.*" size="60" placeholder="https://engage-api.campuslabs.com/api/v3.0" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+    <input type="url" name="engage_base_url" pattern="https://.*" size="40" placeholder="https://engage-api.campuslabs.com/api/v3.0" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
 <?
 }
 
