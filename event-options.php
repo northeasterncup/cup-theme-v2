@@ -1,8 +1,5 @@
 <?php
 
-// Hook for registering the engage settings
-add_action('admin_init', 'engage_admin_init');
-
 // Hook for adding the engage settings submenu
 add_action('admin_menu', 'engage_admin_add_page');
 
@@ -46,17 +43,25 @@ function engage_options_page()
     echo '</div>';
 }
 
+// Hook for registering the engage settings
+add_action('admin_init', 'engage_admin_init');
+
 // Action function for the above hook
 function engage_admin_init()
 {
     // Register Engage API Settings
-    register_setting('engage_options', 'engage_options', 'engage_options_validate');
+    register_setting('engage_options', 'engage_options', array(
+        'type' => 'array',
+        'sanitize_callback' => 'engage_options_validate',
+        'show_in_rest' => FALSE,
+        'default' => NULL
+    ));
 
     // Register Engage API Settings Section
     add_settings_section(
         'engage_api',
         'API Settings',
-        'engage_section_text',
+        'engage_api_text',
         'engage'
     );
 
@@ -70,7 +75,8 @@ function engage_admin_init()
     );
 }
 
-function engage_section_text()
+// Callback for the API settings section text
+function engage_api_text()
 {
     echo '<p>Manage the API integration settings.</p>';
 }
@@ -82,7 +88,7 @@ function engage_setting_base_url()
     echo "<input id='engage_base_url' name='engage_options[base_url]' size='40' type='text' value='{$options['base_url']}' />";
 }
 
-// Validation function for the base url settings field
+// Validation function for all engage options
 function engage_options_validate($input)
 {
     $newinput['base_url'] = trim($input['base_url']);
