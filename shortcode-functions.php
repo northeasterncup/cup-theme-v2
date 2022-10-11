@@ -3,14 +3,6 @@
 // Get the Engage Functions
 get_template_part('engage-functions', '');
 
-// Returns a UTC timestamp
-function utcTimestampShortcodes()
-{
-    $time = new DateTime('now', new DateTimeZone('UTC'));
-    $timestamp = $time->format('c');
-    return $timestamp;
-}
-
 // Homepage Events Shortcode
 // Display the three closest upcoming events. For use on the homepage.
 function home_events_function()
@@ -40,7 +32,7 @@ function home_events_function()
     // Make the request for upcoming events
     $request = engage_request_cached('homepage_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsAfter' => utcTimestampShortcodes(),
+        'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
@@ -161,7 +153,7 @@ function upcoming_events_function()
     // Make the request for upcoming events
     $request = engage_request_concat_cached('upcoming_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsAfter' => utcTimestampShortcodes(),
+        'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
@@ -306,7 +298,7 @@ function past_events_function()
     // Make the request for upcoming events
     $request = engage_request_concat_cached('past_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsBefore' => utcTimestampShortcodes(),
+        'endsBefore' => utcTimestamp(),
         'startsAfter' => $event_cutoff,
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
