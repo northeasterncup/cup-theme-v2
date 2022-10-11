@@ -247,7 +247,7 @@ function past_events_function()
     $event_cutoff = get_event_cutoff();
 
     // Make the request for upcoming events
-    $request = engage_request_concat('/events/event/', array(
+    $request = engage_request_concat_cached('past_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
         'endsBefore' => utcTimestampShortcodes(),
         'startsAfter' => $event_cutoff,
