@@ -49,7 +49,7 @@ add_action('admin_init', 'engage_admin_init');
 // Action function for the above hook
 function engage_admin_init()
 {
-    // Register Base URL
+    // Register Base URL setting
     register_setting('engage_settings', 'engage_base_url', array(
         'type' => 'string',
         // 'sanitize_callback' => 'engage_options_validate',
@@ -57,7 +57,15 @@ function engage_admin_init()
         'default' => NULL
     ));
 
-    // Register Engage API Settings Section
+    // Register API Key setting
+    register_setting('engage_settings', 'engage_api_key', array(
+        'type' => 'string',
+        // 'sanitize_callback' => 'engage_options_validate',
+        'show_in_rest' => FALSE,
+        'default' => NULL
+    ));
+
+    // Register Engage API settings section
     add_settings_section(
         'engage_api',
         'API Integration Settings',
@@ -65,11 +73,20 @@ function engage_admin_init()
         'engage'
     );
 
-    // Register Register Engage API Settings Fields
+    // Register Base URL field
     add_settings_field(
         'engage_base_url',
         'Base URL',
         'engage_setting_base_url',
+        'engage',
+        'engage_api'
+    );
+
+    // Register API Key field
+    add_settings_field(
+        'engage_api_key',
+        'API Key',
+        'engage_setting_api_key',
         'engage',
         'engage_api'
     );
@@ -89,6 +106,18 @@ function engage_setting_base_url()
     <input type="url" name="engage_base_url" pattern="https://.*" size="40" placeholder="https://engage-api.campuslabs.com/api/v3.0" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
         The endpoint used for all API requests. This should not change unless a new API version is released.
+    </p>
+<?
+}
+
+// Callback for the api key settings field
+function engage_setting_api_key()
+{
+    $setting = get_option('engage_api_key');
+?>
+    <input type="text" name="engage_api_key" size="60" placeholder="e.g. esk_test_3ef94b252b22047586dc53307a10580e" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+    <p class="description">
+        The API key received from a CSI admin with at minimum <code>GET</code> access to the <code>/events</code> endpoint. This should not change unless an API key expires.
     </p>
 <?
 }
