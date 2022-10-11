@@ -28,6 +28,7 @@ function engage_settings_page()
     echo '<li><code>[homepage_events]</code> - Displays the next three upcoming events</li>';
     echo '<li><code>[upcoming_events]</code> - Displays all upcoming events</li>';
     echo '<li><code>[past_events]</code> - Displays past events that take place after the specified cutoff date</li>';
+    echo '</ol>';
     echo '<h2 class="title">Creating an Event</h2>';
     echo '<p>To add new events, you must have an assigned position on CUP\'s roster. New events can be created ';
     echo 'by going to <a href="https://neu.campuslabs.com/engage/">Engage</a>, clicking "CUP" under ';
