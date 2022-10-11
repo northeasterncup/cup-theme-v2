@@ -1,5 +1,8 @@
 <?php
 
+// Hook for registering the engage settings
+add_action('admin_init', 'engage_admin_init');
+
 // Hook for adding the engage settings submenu
 add_action('admin_menu', 'engage_admin_add_page');
 
@@ -42,9 +45,6 @@ function engage_options_page()
     echo 'and other various Northeastern platforms.</p>';
     echo '</div>';
 }
-
-// Hook for registering the engage settings
-add_action('admin_init', 'engage_admin_init');
 
 // Action function for the above hook
 function engage_admin_init()
