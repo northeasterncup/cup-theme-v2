@@ -1,5 +1,8 @@
 <?php
 
+// Get the Engage Functions
+get_template_part('engage-functions', '');
+
 // Returns a UTC timestamp
 function utcTimestampShortcodes()
 {
@@ -8,34 +11,31 @@ function utcTimestampShortcodes()
     return $timestamp;
 }
 
-// Returns the CUP Organization ID, or an error
-function get_cup_org_id()
-{
-    $value = get_option('engage_cup_org_id');
-    if ($value == NULL || $value == false) {
-        throw new WP_Error('engage_cup_org_id_unset', 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.');
-    } else {
-        return $value;
-    }
-}
-
-// Returns the Event Cutoff Date, or an error
-function get_event_cutoff()
-{
-    $value = get_option('engage_event_cutoff');
-    if ($value == NULL || $value == false) {
-        throw new WP_Error('engage_event_cutoff_unset', 'You must set the Event Cutoff Date under Settings -> Engage/Event Settings to display past events.');
-    } else {
-        return $value;
-    }
-}
-
 // Homepage Events Shortcode
 // Display the three closest upcoming events. For use on the homepage.
 function home_events_function()
 {
+    // Get the Engage API Key
+    $engage_api_key = get_option('engage_api_key');
+
+    // If the Engage API Key is null or does not exist
+    if ($engage_api_key == NULL || $engage_api_key == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
+
     // Get the CUP Organization ID
-    $cup_org_id = get_cup_org_id();
+    $cup_org_id = get_option('engage_cup_org_id');
+
+    // If the CUP Organization ID is null or does not exist
+    if ($cup_org_id == NULL || $cup_org_id == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
 
     // Make the request for upcoming events
     $request = engage_request_cached('homepage_events', 300, '/events/event/', array(
@@ -136,8 +136,27 @@ add_shortcode('home_events', 'home_events_function');
 // Display cards for all upcoming events.
 function upcoming_events_function()
 {
+    // Get the Engage API Key
+    $engage_api_key = get_option('engage_api_key');
+
+    // If the Engage API Key is null or does not exist
+    if ($engage_api_key == NULL || $engage_api_key == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
+
     // Get the CUP Organization ID
-    $cup_org_id = get_cup_org_id();
+    $cup_org_id = get_option('engage_cup_org_id');
+
+    // If the CUP Organization ID is null or does not exist
+    if ($cup_org_id == NULL || $cup_org_id == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
 
     // Make the request for upcoming events
     $request = engage_request_concat_cached('upcoming_events', 300, '/events/event/', array(
@@ -240,11 +259,49 @@ add_shortcode('upcoming_events', 'upcoming_events_function');
 // Display cards for all past events.
 function past_events_function()
 {
+    // Get the Engage API Key
+    $engage_api_key = get_option('engage_api_key');
+
+    // If the Engage API Key is null or does not exist
+    if ($engage_api_key == NULL || $engage_api_key == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
+
     // Get the CUP Organization ID
-    $cup_org_id = get_cup_org_id();
+    $cup_org_id = get_option('engage_cup_org_id');
+
+    // If the CUP Organization ID is null or does not exist
+    if ($cup_org_id == NULL || $cup_org_id == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
+
+    // Get the CUP Organization ID
+    $cup_org_id = get_option('engage_cup_org_id');
+
+    // If the CUP Organization ID is null or does not exist
+    if ($cup_org_id == NULL || $cup_org_id == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+        $error .= '</div>';
+        return $error;
+    }
 
     // Get the event cutoff date
-    $event_cutoff = get_event_cutoff();
+    $event_cutoff = get_option('engage_event_cutoff');
+
+    // If the event cutoff date is null or does not exist
+    if ($event_cutoff == NULL || $event_cutoff == false) {
+        $error = '<div class="alert alert-danger">';
+        $error .= 'You must set the past event cutoff under Settings -> Engage/Event Settings to display past events.';
+        $error .= '</div>';
+        return $error;
+    }
 
     // Make the request for upcoming events
     $request = engage_request_concat_cached('past_events', 300, '/events/event/', array(

@@ -25,5 +25,4 @@ define('ENGAGE_PAGE_SIZE', '50');
 
 // Import other functions
 get_template_part('event-options', '');
-get_template_part('engage-functions', '');
 get_template_part('shortcode-functions', '');

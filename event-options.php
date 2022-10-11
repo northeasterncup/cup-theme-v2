@@ -156,7 +156,7 @@ function engage_setting_api_key()
 {
     $setting = get_option('engage_api_key');
 ?>
-    <input type="text" name="engage_api_key" size="60" placeholder="e.g. esk_test_3ef94b252b22047586dc53307a10580e" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>" required>
+    <input type="text" name="engage_api_key" size="60" placeholder="e.g. esk_test_3ef94b252b22047586dc53307a10580e" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
         The API key received from a CSI admin with at minimum <code>GET</code> access to the <code>/events</code> endpoint. This should not change unless an API key expires.
     </p>
@@ -168,7 +168,7 @@ function engage_setting_cup_org_id()
 {
     $setting = get_option('engage_cup_org_id');
 ?>
-    <input type="text" name="engage_cup_org_id" size="10" placeholder="e.g. 202334" value="<?php echo isset($setting) ? esc_attr($setting) : '280350'; ?>" required>
+    <input type="text" name="engage_cup_org_id" size="10" placeholder="e.g. 202334" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
         CUP's Organization ID. Will almost certainly never change. Can be found by doing a <code>GET</code> request to the <code>/organizations/organization</code> endpoint.
     </p>
@@ -180,7 +180,7 @@ function engage_setting_event_cutoff()
 {
     $setting = get_option('engage_event_cutoff');
 ?>
-    <input type="date" name="engage_event_cutoff" max="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($setting) ? esc_attr($setting) : '2022-09-01'; ?>" required>
+    <input type="date" name="engage_event_cutoff" max="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
         Past events before this date will not be shown in the <code>[past_events]</code> shortcode.
     </p>

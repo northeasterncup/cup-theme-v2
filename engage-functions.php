@@ -14,23 +14,17 @@ function utcTimestampFunctions()
     return $timestamp;
 }
 
-// Returns the Engage API Key, or an error
-function get_engage_api_key()
-{
-    $value = get_option('engage_api_key');
-    if ($value == NULL || $value == false) {
-        throw new WP_Error('engage_api_key_unset', 'You must set the Engage API Key under Settings -> Engage/Event Settings to make a request to the Engage API.');
-    } else {
-        return $value;
-    }
-}
-
 // Engage Request
 // Using the Engage API, make an HTTP request using the provided parameters.
 function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
     // Get the Engage API Key
-    $engage_api_key = get_engage_api_key();
+    $engage_api_key = get_option('engage_api_key');
+
+    // Throw an error if the API Key is unset
+    if ($engage_api_key == NULL || $engage_api_key == false) {
+        throw new WP_Error('engage_api_key_unset', 'You must set the Engage API Key under Settings -> Engage/Event Settings to make a request to the Engage API.');
+    }
 
     // Merge given arguments with default arguments
     $allArgs = array_merge(array(
