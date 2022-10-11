@@ -369,7 +369,7 @@ function past_events_function()
                 // Convert start time format
                 $eventStartTimeObject = new DateTimeImmutable($event['startsOn'], new DateTimeZone('UTC'));
                 $eventStartTimeEST = $eventStartTimeObject->setTimezone(new DateTimeZone('America/New_York'));
-                $eventStartTimeString = $eventStartTimeEST->format('F j \a\t g\:iA T');
+                $eventStartTimeString = $eventStartTimeEST->format('F j, Y');
 
                 // event wrapper HTML
                 $html .= '<div class="event-wrapper col-12 col-md-3">';
