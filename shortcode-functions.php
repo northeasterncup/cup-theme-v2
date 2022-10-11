@@ -208,6 +208,7 @@ function past_events_function()
     $request = engage_request_concat('/events/event/', array(
         'organizationIds' => CUP_ORGANIZATION_ID,
         'endsBefore' => utcTimestamp(),
+        'startsAfter' => '2022-09-01',
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
