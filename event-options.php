@@ -7,7 +7,7 @@ add_action('admin_menu', 'engage_admin_add_page');
 function engage_admin_add_page()
 {
     // Add a new options page as a submenu of the Settings main menu
-    add_options_page('Engage Settings Page', 'Engage Settings Menu', 'manage_options', 'engage', 'engage_options_page');
+    add_options_page('Engage/Event Settings', 'Engage/Event Settings', 'manage_options', 'engage', 'engage_options_page');
 }
 
 // Displays the page content for the Engage Settings submenu
@@ -124,7 +124,7 @@ function engage_api_text()
 // Callback for the Event Display settings section text
 function engage_event_display_text()
 {
-    echo '<p>Options for events displayed on the events shortcodes.</p>';
+    echo '<p>Settings for how events will be displayed throughout the site.</p>';
 }
 
 // Callback for the api key settings field

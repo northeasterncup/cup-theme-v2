@@ -6,13 +6,6 @@
  * API Documentation: https://engage-api.campuslabs.com/
  */
 
-// Constants
-define('ENGAGE_BASE_URL', 'https://engage-api.campuslabs.com/api/v3.0');
-define('ENGAGE_API_KEY', 'esk_live_f98d79b42f2b22e3a9f9aacdcc4bf758');
-define('ENGAGE_PAGE_SIZE', '50');
-define('EVENT_CUTOFF_DATE', '2022-09-01'); // don't show past events before this date
-define('CUP_ORGANIZATION_ID', '280350'); // get this using the /organizations/organization endpoint
-
 // Returns a UTC timestamp
 function utcTimestamp()
 {
@@ -21,22 +14,43 @@ function utcTimestamp()
     return $timestamp;
 }
 
+// Returns the Engage API Key, or an error
+function get_engage_api_key()
+{
+    $value = get_option('engage_api_key');
+    if ($value == NULL || $value == false) {
+        throw new WP_Error('engage_api_key_unset', 'You must set the Engage API Key under Settings -> Engage/Event Settings to make a request to the Engage API.');
+    } else {
+        return $value;
+    }
+}
+
 // Engage Request
 // Using the Engage API, make an HTTP request using the provided parameters.
 function engage_request($endpoint = '/organizations/organization', $args = array(), $method = 'GET', $body = '', $headers = array())
 {
+    // Get the Engage API Key
+    $engage_api_key = get_engage_api_key();
+
+    // Merge given arguments with default arguments
     $allArgs = array_merge(array(
         'take' => ENGAGE_PAGE_SIZE,
         'skip' => '0'
     ), $args);
+
+    // Merge given headers with default arguments
     $allHeaders = array_merge(
         array(
             'Accept' => 'application/json',
-            'X-Engage-Api-Key' => ENGAGE_API_KEY
+            'X-Engage-Api-Key' => $engage_api_key
         ),
         $headers
     );
+
+    // Build the full endpoint URL
     $full_url = ENGAGE_BASE_URL . $endpoint . '?' . http_build_query($allArgs);
+
+    // Make the request
     $request = wp_remote_request(
         $full_url,
         array(
@@ -46,7 +60,11 @@ function engage_request($endpoint = '/organizations/organization', $args = array
             'body' => $body
         )
     );
+
+    // Retrieve the response body
     $response_body = wp_remote_retrieve_body($request);
+
+    // Return the JSON decoded response body
     $decoded_body = json_decode($response_body, true);
     return $decoded_body;
 }

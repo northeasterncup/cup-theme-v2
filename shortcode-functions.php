@@ -1,12 +1,37 @@
 <?php
 
+// Returns the CUP Organization ID, or an error
+function get_cup_org_id()
+{
+    $value = get_option('engage_cup_org_id');
+    if ($value == NULL || $value == false) {
+        throw new WP_Error('engage_cup_org_id_unset', 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.');
+    } else {
+        return $value;
+    }
+}
+
+// Returns the Event Cutoff Date, or an error
+function get_event_cutoff()
+{
+    $value = get_option('engage_event_cutoff');
+    if ($value == NULL || $value == false) {
+        throw new WP_Error('engage_event_cutoff_unset', 'You must set the Event Cutoff Date under Settings -> Engage/Event Settings to display past events.');
+    } else {
+        return $value;
+    }
+}
+
 // Homepage Events Shortcode
 // Display the three closest upcoming events. For use on the homepage.
 function home_events_function()
 {
+    // Get the CUP Organization ID
+    $cup_org_id = get_cup_org_id();
+
     // Make the request for upcoming events
     $request = engage_request_cached('homepage_events', 300, '/events/event/', array(
-        'organizationIds' => CUP_ORGANIZATION_ID,
+        'organizationIds' => $cup_org_id,
         'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
@@ -103,9 +128,12 @@ add_shortcode('home_events', 'home_events_function');
 // Display cards for all upcoming events.
 function upcoming_events_function()
 {
+    // Get the CUP Organization ID
+    $cup_org_id = get_cup_org_id();
+
     // Make the request for upcoming events
     $request = engage_request_concat_cached('upcoming_events', 300, '/events/event/', array(
-        'organizationIds' => CUP_ORGANIZATION_ID,
+        'organizationIds' => $cup_org_id,
         'endsAfter' => utcTimestamp(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
@@ -204,11 +232,17 @@ add_shortcode('upcoming_events', 'upcoming_events_function');
 // Display cards for all past events.
 function past_events_function()
 {
+    // Get the CUP Organization ID
+    $cup_org_id = get_cup_org_id();
+
+    // Get the event cutoff date
+    $event_cutoff = get_event_cutoff();
+
     // Make the request for upcoming events
     $request = engage_request_concat_cached('past_events', 300, '/events/event/', array(
-        'organizationIds' => CUP_ORGANIZATION_ID,
+        'organizationIds' => $cup_org_id,
         'endsBefore' => utcTimestamp(),
-        'startsAfter' => EVENT_CUTOFF_DATE,
+        'startsAfter' => $event_cutoff,
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
