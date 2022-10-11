@@ -60,7 +60,7 @@ function engage_admin_init()
     // Register Engage API Settings Section
     add_settings_section(
         'engage_api',
-        'API Settings',
+        'API Integration Settings',
         'engage_api_text',
         'engage'
     );
@@ -78,7 +78,7 @@ function engage_admin_init()
 // Callback for the API settings section text
 function engage_api_text()
 {
-    echo '<p>Manage the API integration settings.</p>';
+    echo '<p>Settings used to pull events from the Engage API.</p>';
 }
 
 // Callback for the base url settings field
@@ -86,7 +86,10 @@ function engage_setting_base_url()
 {
     $setting = get_option('engage_base_url');
 ?>
-    <input type="url" name="engage_base_url" pattern="https://.*" size="40" placeholder="https://engage-api.campuslabs.com/api/v3.0" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+    <input type="url" name="engage_base_url" pattern="https://.*" size="40" value="https://engage-api.campuslabs.com/api/v3.0" readonly>
+    <p class="description">
+        The endpoint used for all API requests. This does not change unless a new API version is released.
+    </p>
 <?
 }
 
