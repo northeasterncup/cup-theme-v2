@@ -17,6 +17,6 @@ function engage_settings_page()
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
     echo '<div class="wrap">';
-    echo '<p>Here is where the form would go if I actually had options.</p>';
+    echo '<h1>CampusLabs Engage Settings</h1>';
     echo '</div>';
 }
