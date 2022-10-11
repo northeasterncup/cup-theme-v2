@@ -25,7 +25,7 @@ function engage_settings_page()
     echo '<form method="post" action="options.php">';
     settings_fields('engage_settings');
     do_settings_sections('engage_settings');
-    echo '<input name="Submit" type="submit" value="' . esc_attr_e('Save Changes') . '" />';
+    submit_button('Save Changes');
     echo '</form>';
     echo '<h2 class="title">Available Shortcodes</h2>';
     echo '<p>Currently, three shortcodes are available:';
