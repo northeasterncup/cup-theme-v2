@@ -21,7 +21,12 @@ function engage_settings_page()
     echo '<p>Events are displayed throughout the site from the CampusLabs Engage Platform, using their ';
     echo 'REST API. New events will be automatically pulled every 5 minutes. Configure the integration ';
     echo 'settings below if needed, but these should not need to change often.</p>';
-    echo '<h2 class="title">Integration Settings</h2>';
+    echo '<h2 class="title">API Integration Settings</h2>';
+    echo '<form method="post" action="options.php">';
+    settings_fields('engage_settings');
+    do_settings_sections('engage_settings');
+    echo '<input name="Submit" type="submit" value="' . esc_attr_e('Save Changes') . '" />';
+    echo '</form>';
     echo '<h2 class="title">Available Shortcodes</h2>';
     echo '<p>Currently, three shortcodes are available:';
     echo '<ol>';
@@ -37,4 +42,49 @@ function engage_settings_page()
     echo 'valid, and once approved, the event will automatically posted on the CUP website, the Student Hub, ';
     echo 'and other various Northeastern platforms.</p>';
     echo '</div>';
+}
+
+// Hook for registering the engage settings
+add_action('admin_init', 'engage_settings_admin_init');
+
+// Action function for the above hook
+function engage_settings_admin_init()
+{
+    // Register Engage API Settings
+    register_setting('engage_settings_options', 'engage_settings_options', 'engage_settings_options_validate');
+
+    // Register Engage API Settings Section
+    add_settings_section(
+        'engage_settings_api',
+        'API Integration Settings',
+        'engage_settings_api_section_text',
+        'engage_settings'
+    );
+
+    // Register Register Engage API Settings Fields
+    add_settings_field(
+        'engage_settings_base_url',
+        'Base URL',
+        'engage_settings_field_base_url',
+        'engage_settings',
+        'engage_settings_api'
+    );
+}
+
+// Callback for the base url settings field
+function engage_settings_field_base_url()
+{
+    $options = get_option('engage_settings_options');
+    echo "<input id='engage_settings_field_url' name='engage_settings_options[base_url]' size='40' type='text' value='{$options['base_url']}' />";
+}
+
+// Validation function for the base url settings field
+function engage_settings_options_validate($input)
+{
+    $options = get_option('engage_settings_options');
+    $options['text_string'] = trim($input['base_url']);
+    if (!preg_match('/^[a-z0-9]{32}$/i', $options['base_url'])) {
+        $options['base_url'] = '';
+    }
+    return $options;
 }
