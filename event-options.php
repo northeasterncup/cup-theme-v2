@@ -86,7 +86,7 @@ function engage_setting_base_url()
 {
     $setting = get_option('engage_base_url');
 ?>
-    <input type="url" name="engage_base_url" pattern="https://.*" size="40" value="https://engage-api.campuslabs.com/api/v3.0" readonly>
+    <input type="url" name="engage_base_url" pattern="https://.*" size="40" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>" readonly>
     <p class="description">
         The endpoint used for all API requests. This does not change unless a new API version is released.
     </p>
