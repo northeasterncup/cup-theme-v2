@@ -316,7 +316,7 @@ function past_events_function()
     if ($event_cutoff == NULL || $event_cutoff == false) {
         if (current_user_can('manage_options')) {
             $error = '<div class="alert alert-danger">';
-            $error .= 'You must set the past event cutoff under Settings -> Engage/Event Settings to display past events.';
+            $error .= 'You must set the past event cutoff date under Settings -> Engage/Event Settings to display past events.';
             $error .= '</div>';
         } else {
             $error = '<div class="alert alert-danger">';

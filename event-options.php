@@ -30,6 +30,9 @@ function engage_options_page()
     echo 'settings below if needed, but these should not need to change often.</p>';
 
     // Engage Settings Form
+    echo '<div id="message" class="notice notice-warning is-dismissible"><p>';
+    echo 'All settings must be set for the event shortcodes to properly behave.';
+    echo '</p></div>';
     echo '<form method="post" action="options.php">';
     settings_fields('engage_settings');
     do_settings_sections('engage');
@@ -158,7 +161,7 @@ function engage_setting_api_key()
 ?>
     <input type="text" name="engage_api_key" size="60" placeholder="e.g. esk_test_3ef94b252b22047586dc53307a10580e" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
     <p class="description">
-        The API key received from a CSI admin with at minimum <code>GET</code> access to the <code>/events</code> endpoint. This should not change unless an API key expires.
+        The API key received from a CSI admin with at minimum <code>GET</code> access to the <code>/events</code> endpoint. Should not change unless an API key expires.
     </p>
 <?
 }
