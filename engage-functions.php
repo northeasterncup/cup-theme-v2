@@ -10,6 +10,7 @@
 define('ENGAGE_BASE_URL', 'https://engage-api.campuslabs.com/api/v3.0');
 define('ENGAGE_API_KEY', 'esk_live_f98d79b42f2b22e3a9f9aacdcc4bf758');
 define('ENGAGE_PAGE_SIZE', '50');
+define('EVENT_CUTOFF_DATE', '2022-09-01'); // don't show past events before this date
 define('CUP_ORGANIZATION_ID', '280350'); // get this using the /organizations/organization endpoint
 
 // Returns a UTC timestamp
