@@ -86,7 +86,7 @@ function engage_setting_base_url()
 {
     $setting = get_option('engage_base_url');
 ?>
-    <input type="text" name="engage_base_url" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">;
+    <input type="text" name="engage_base_url" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
 <?
 }
 
