@@ -22,7 +22,7 @@ function engage_options_page()
     echo 'REST API. New events will be automatically pulled every 5 minutes. Configure the integration ';
     echo 'settings below if needed, but these should not need to change often.</p>';
     echo '<form method="post" action="options.php">';
-    settings_fields('engage_options');
+    settings_fields('engage_settings');
     do_settings_sections('engage');
     submit_button('Save Changes');
     echo '</form>';
@@ -49,10 +49,10 @@ add_action('admin_init', 'engage_admin_init');
 // Action function for the above hook
 function engage_admin_init()
 {
-    // Register Engage API Settings
-    register_setting('reading', 'engage_options', array(
-        'type' => 'array',
-        'sanitize_callback' => 'engage_options_validate',
+    // Register Base URL
+    register_setting('engage_settings', 'engage_base_url', array(
+        'type' => 'string',
+        // 'sanitize_callback' => 'engage_options_validate',
         'show_in_rest' => FALSE,
         'default' => NULL
     ));
@@ -62,7 +62,7 @@ function engage_admin_init()
         'engage_api',
         'API Settings',
         'engage_api_text',
-        'reading'
+        'engage'
     );
 
     // Register Register Engage API Settings Fields
@@ -70,7 +70,7 @@ function engage_admin_init()
         'engage_base_url',
         'Base URL',
         'engage_setting_base_url',
-        'reading',
+        'engage',
         'engage_api'
     );
 }
@@ -84,16 +84,18 @@ function engage_api_text()
 // Callback for the base url settings field
 function engage_setting_base_url()
 {
-    $options = get_option('engage_options');
-    echo "<input id='engage_base_url' name='engage_options[base_url]' size='40' type='text' value='{$options['base_url']}' />";
+    $setting = get_option('engage_base_url');
+?>
+    <input type="text" name="engage_base_url" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">;
+<?
 }
 
-// Validation function for all engage options
-function engage_options_validate($input)
-{
-    $newinput['base_url'] = trim($input['base_url']);
-    if (!preg_match('/^[a-z0-9]{32}$/i', $newinput['base_url'])) {
-        $newinput['base_url'] = '';
-    }
-    return $newinput;
-}
+// // Validation function for all engage options
+// function engage_options_validate($input)
+// {
+//     $newinput['base_url'] = trim($input['base_url']);
+//     if (!preg_match('/^[a-z0-9]{32}$/i', $newinput['base_url'])) {
+//         $newinput['base_url'] = '';
+//     }
+//     return $newinput;
+// }
