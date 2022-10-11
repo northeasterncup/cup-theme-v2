@@ -20,5 +20,6 @@ function bootscore_child_enqueue_styles()
 }
 
 // Import other functions
+get_template_part('event-options', '');
 get_template_part('engage-functions', '');
 get_template_part('shortcode-functions', '');
