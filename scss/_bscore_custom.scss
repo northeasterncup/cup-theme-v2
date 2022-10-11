@@ -8,6 +8,11 @@
 // Change HTML color
 html {
     background-color: $dark;
+    --cup-white: #faf5ec;
+}
+
+div#content {
+    background-color: $white;
 }
 
 // Change body color
@@ -99,4 +104,48 @@ h5,
 h6,
 .h6 {
     font-weight: 300;
+}
+
+// MC4WP Styling
+.mc4wp-alert {
+    @extend .mt-3;
+    @extend .alert;
+}
+
+.mc4wp-alert p {
+    margin-bottom: 0rem;
+}
+
+.mc4wp-alert.mc4wp-success {
+    @extend .alert-success;
+}
+
+.mc4wp-alert.mc4wp-error {
+    @extend .alert-danger;
+}
+
+// Event Card Styles
+.event-card {
+    div.card-img-top.event-img {
+        @extend .card-img-top;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        padding-bottom: 60%;
+    }
+}
+
+.bi-pe-1::before {
+    padding-right: 5px;
+}
+
+.bi-pe-2::before {
+    padding-right: 10px
+}
+
+.btn-primary {
+    --bs-btn-color: var(--cup-white);
+    --bs-btn-hover-color: var(--cup-white);
+    --bs-btn-active-color: var(--cup-white);
+    --bs-btn-disabled-color: var(--cup-white);
 }
