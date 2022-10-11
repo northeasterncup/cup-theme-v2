@@ -49,18 +49,19 @@ add_action('admin_init', 'engage_admin_init');
 // Action function for the above hook
 function engage_admin_init()
 {
-    // Register Base URL setting
-    register_setting('engage_settings', 'engage_base_url', array(
-        'type' => 'string',
-        // 'sanitize_callback' => 'engage_options_validate',
-        'show_in_rest' => FALSE,
-        'default' => NULL
-    ));
+    unregister_setting('engage', 'engage_options');
+    unregister_setting('engage_settings', 'engage_base_url');
 
     // Register API Key setting
     register_setting('engage_settings', 'engage_api_key', array(
         'type' => 'string',
-        // 'sanitize_callback' => 'engage_options_validate',
+        'show_in_rest' => FALSE,
+        'default' => NULL
+    ));
+
+    // Register Event Cutoff setting
+    register_setting('engage_settings', 'engage_event_cutoff', array(
+        'type' => 'string',
         'show_in_rest' => FALSE,
         'default' => NULL
     ));
@@ -73,13 +74,12 @@ function engage_admin_init()
         'engage'
     );
 
-    // Register Base URL field
-    add_settings_field(
-        'engage_base_url',
-        'Base URL',
-        'engage_setting_base_url',
-        'engage',
-        'engage_api'
+    // Register Event Display settings section
+    add_settings_section(
+        'engage_event_display',
+        'Event Display Settings',
+        'engage_event_display_text',
+        'engage'
     );
 
     // Register API Key field
@@ -90,6 +90,15 @@ function engage_admin_init()
         'engage',
         'engage_api'
     );
+
+    // Register Event Cutoff field
+    add_settings_field(
+        'engage_event_cutoff',
+        'Event Cutoff Date',
+        'engage_setting_event_cutoff',
+        'engage',
+        'engage_event_display'
+    );
 }
 
 // Callback for the API settings section text
@@ -98,16 +107,10 @@ function engage_api_text()
     echo '<p>Settings used to pull events from the Engage API.</p>';
 }
 
-// Callback for the base url settings field
-function engage_setting_base_url()
+// Callback for the Event Display settings section text
+function engage_event_display_text()
 {
-    $setting = get_option('engage_base_url');
-?>
-    <input type="url" name="engage_base_url" pattern="https://.*" size="40" placeholder="https://engage-api.campuslabs.com/api/v3.0" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
-    <p class="description">
-        The endpoint used for all API requests. This should not change unless a new API version is released.
-    </p>
-<?
+    echo '<p>Options for events displayed on the events shortcodes.</p>';
 }
 
 // Callback for the api key settings field
@@ -122,12 +125,14 @@ function engage_setting_api_key()
 <?
 }
 
-// // Validation function for all engage options
-// function engage_options_validate($input)
-// {
-//     $newinput['base_url'] = trim($input['base_url']);
-//     if (!preg_match('/^[a-z0-9]{32}$/i', $newinput['base_url'])) {
-//         $newinput['base_url'] = '';
-//     }
-//     return $newinput;
-// }
+// Callback for the event cutoff settings field
+function engage_setting_event_cutoff()
+{
+    $setting = get_option('engage_event_cutoff');
+?>
+    <input type="date" name="engage_event_cutoff" max="<?php echo date('Y-m-d'); ?>" value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+    <p class="description">
+        Past events before this date will not be shown in the <code>[past_events]</code> shortcode.
+    </p>
+<?
+}
