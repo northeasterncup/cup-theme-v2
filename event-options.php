@@ -18,7 +18,7 @@ function engage_options_page()
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
 
-    // Check whether the reset event cache button has been pressed AND also check the nonce
+    // Check whether the clear event cache button has been pressed AND also check the nonce
     if (isset($_POST['clear_event_cache']) && check_admin_referer('clear_event_cache_clicked')) {
         clear_event_cache();
     }
@@ -36,8 +36,8 @@ function engage_options_page()
     submit_button('Save Changes');
     echo '</form>';
 
-    // Reset Event Cache Form
-    echo '<h2>Reset Event Cache</h2>';
+    // Clear Event Cache Form
+    echo '<h2>Clear Event Cache</h2>';
     echo '<p>Events are automatically pulled every 5 minutes. If you would like to pull new events now, ';
     echo 'click the button below.';
 
