@@ -13,19 +13,41 @@ function engage_admin_add_page()
 // Displays the page content for the Engage Settings submenu
 function engage_options_page()
 {
+    // Check whether the current user can manage options
     if (!current_user_can('manage_options')) {
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
+
+    // Check whether the reset event cache button has been pressed AND also check the nonce
+    if (isset($_POST['clear_event_cache']) && check_admin_referer('clear_event_cache_clicked')) {
+        clear_event_cache();
+    }
+
     echo '<div class="wrap">';
     echo '<h1>CampusLabs Engage Settings</h1>';
     echo '<p>Events are displayed throughout the site from the CampusLabs Engage Platform, using their ';
     echo 'REST API. New events will be automatically pulled every 5 minutes. Configure the integration ';
     echo 'settings below if needed, but these should not need to change often.</p>';
+
+    // Engage Settings Form
     echo '<form method="post" action="options.php">';
     settings_fields('engage_settings');
     do_settings_sections('engage');
     submit_button('Save Changes');
     echo '</form>';
+
+    // Reset Event Cache Form
+    echo '<h2>Reset Event Cache</h2>';
+    echo '<p>Events are automatically pulled every 5 minutes. If you would like to pull new events now, ';
+    echo 'click the button below.';
+
+    echo '<form action="options-general.php?page=engage" method="post">';
+    wp_nonce_field('clear_event_cache_clicked');
+    echo '<input type="hidden" value="true" name="clear_event_cache" />';
+    submit_button('Clear Event Cache');
+    echo '</form>';
+
+    // Available Shortcodes Description
     echo '<h2 class="title">Available Shortcodes</h2>';
     echo '<p>Currently, three shortcodes are available:';
     echo '<ol>';
@@ -33,6 +55,8 @@ function engage_options_page()
     echo '<li><code>[upcoming_events]</code> - Displays all upcoming events</li>';
     echo '<li><code>[past_events]</code> - Displays past events that take place after the specified cutoff date</li>';
     echo '</ol>';
+
+    // Creating an Event Instructions
     echo '<h2 class="title">Creating an Event</h2>';
     echo '<p>To add new events, you must have an assigned position on CUP\'s roster. New events can be created ';
     echo 'by going to <a href="https://neu.campuslabs.com/engage/">Engage</a>, clicking "CUP" under ';
@@ -161,4 +185,17 @@ function engage_setting_event_cutoff()
         Past events before this date will not be shown in the <code>[past_events]</code> shortcode.
     </p>
 <?
+}
+
+// Clear the event shortcode transients
+function clear_event_cache()
+{
+    // Delete the transients
+    delete_transient('homepage_events');
+    delete_transient('upcoming_events');
+    delete_transient('past_events');
+
+    // Tell the user that the cache has been cleared
+    echo '<div id="message" class="updated fade"><p>';
+    echo 'The event cache has been cleared.' . '</p></div>';
 }
