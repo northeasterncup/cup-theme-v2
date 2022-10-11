@@ -1,17 +1,17 @@
 <?php
 
 // Hook for adding the engage settings submenu
-add_action('admin_menu', 'engage_settings_menu');
+add_action('admin_menu', 'engage_admin_add_page');
 
 // Action function for above hook
-function engage_settings_menu()
+function engage_admin_add_page()
 {
     // Add a new options page as a submenu of the Settings main menu
-    add_options_page('Engage Settings', 'Engage Settings', 'manage_options', 'engage-settings-menu', 'engage_settings_page');
+    add_options_page('Engage Settings Page', 'Engage Settings Menu', 'manage_options', 'engage', 'engage_options_page');
 }
 
 // Displays the page content for the Engage Settings submenu
-function engage_settings_page()
+function engage_options_page()
 {
     if (!current_user_can('manage_options')) {
         wp_die(__('You do not have sufficient permissions to access this page.'));
@@ -23,8 +23,8 @@ function engage_settings_page()
     echo 'settings below if needed, but these should not need to change often.</p>';
     echo '<h2 class="title">API Integration Settings</h2>';
     echo '<form method="post" action="options.php">';
-    settings_fields('engage_settings');
-    do_settings_sections('engage_settings');
+    settings_fields('engage_options');
+    do_settings_sections('engage');
     submit_button('Save Changes');
     echo '</form>';
     echo '<h2 class="title">Available Shortcodes</h2>';
@@ -45,44 +45,49 @@ function engage_settings_page()
 }
 
 // Hook for registering the engage settings
-add_action('admin_init', 'engage_settings_admin_init');
+add_action('admin_init', 'engage_admin_init');
 
 // Action function for the above hook
-function engage_settings_admin_init()
+function engage_admin_init()
 {
     // Register Engage API Settings
-    register_setting('engage_settings_options', 'engage_settings_options', 'engage_settings_options_validate');
+    register_setting('engage_options', 'engage_options', 'engage_options_validate');
 
     // Register Engage API Settings Section
     add_settings_section(
-        'engage_settings_api',
-        'API Integration Settings',
-        'engage_settings_api_section_text',
-        'engage_settings'
+        'engage_api',
+        'API Settings',
+        'engage_section_text',
+        'engage'
     );
 
     // Register Register Engage API Settings Fields
     add_settings_field(
-        'engage_settings_base_url',
+        'engage_base_url',
         'Base URL',
-        'engage_settings_field_base_url',
-        'engage_settings',
-        'engage_settings_api'
+        'engage_setting_base_url',
+        'engage',
+        'engage_api'
     );
 }
 
-// Callback for the base url settings field
-function engage_settings_field_base_url()
+function engage_section_text()
 {
-    $options = get_option('engage_settings_options');
-    echo "<input id='engage_settings_field_url' name='engage_settings_options[base_url]' size='40' type='text' value='{$options['base_url']}' />";
+    echo '<p>Manage the API integration settings.</p>';
+}
+
+// Callback for the base url settings field
+function engage_setting_base_url()
+{
+    $options = get_option('engage_options');
+    echo "<input id='engage_base_url' name='engage_options[base_url]' size='40' type='text' value='{$options['base_url']}' />";
 }
 
 // Validation function for the base url settings field
-function engage_settings_options_validate($input)
+function engage_options_validate($input)
 {
-    $options = get_option('engage_settings_options');
-    $options['text_string'] = trim($input['base_url']);
+    $options = get_option('engage_options');
+    $options['base_url'] = trim($input['base_url']);
     if (!preg_match('/^[a-z0-9]{32}$/i', $options['base_url'])) {
         $options['base_url'] = '';
     }
