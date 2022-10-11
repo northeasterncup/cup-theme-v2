@@ -1,5 +1,13 @@
 <?php
 
+// Returns a UTC timestamp
+function utcTimestamp()
+{
+    $time = new DateTime('now', new DateTimeZone('UTC'));
+    $timestamp = $time->format('c');
+    return $timestamp;
+}
+
 // Returns the CUP Organization ID, or an error
 function get_cup_org_id()
 {
