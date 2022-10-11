@@ -7,7 +7,7 @@
  */
 
 // Returns a UTC timestamp
-function utcTimestamp()
+function utcTimestampFunctions()
 {
     $time = new DateTime('now', new DateTimeZone('UTC'));
     $timestamp = $time->format('c');

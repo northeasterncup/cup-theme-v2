@@ -1,7 +1,7 @@
 <?php
 
 // Returns a UTC timestamp
-function utcTimestamp()
+function utcTimestampShortcodes()
 {
     $time = new DateTime('now', new DateTimeZone('UTC'));
     $timestamp = $time->format('c');
@@ -40,7 +40,7 @@ function home_events_function()
     // Make the request for upcoming events
     $request = engage_request_cached('homepage_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsAfter' => utcTimestamp(),
+        'endsAfter' => utcTimestampShortcodes(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
@@ -142,7 +142,7 @@ function upcoming_events_function()
     // Make the request for upcoming events
     $request = engage_request_concat_cached('upcoming_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsAfter' => utcTimestamp(),
+        'endsAfter' => utcTimestampShortcodes(),
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
     ));
@@ -247,9 +247,9 @@ function past_events_function()
     $event_cutoff = get_event_cutoff();
 
     // Make the request for upcoming events
-    $request = engage_request_concat_cached('past_events2', 300, '/events/event/', array(
+    $request = engage_request_concat_cached('past_events', 300, '/events/event/', array(
         'organizationIds' => $cup_org_id,
-        'endsBefore' => utcTimestamp(),
+        'endsBefore' => utcTimestampShortcodes(),
         'startsAfter' => $event_cutoff,
         'excludeCoHosts' => 'false',
         'includeSubmissionIds' => 'true'
