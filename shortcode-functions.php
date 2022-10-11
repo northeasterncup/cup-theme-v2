@@ -224,7 +224,7 @@ function past_events_function()
     });
 
     // Split the array of events into chunks of 3
-    $items = array_chunk($items, 3);
+    $items = array_chunk($items, 4);
 
     // Start HTML variable
     $html = '';
@@ -241,7 +241,7 @@ function past_events_function()
         // Cycle through each row
         foreach ($items as $row) {
             // Start new row
-            $html .= '<div class="event-row row g-3 pb-3">';
+            $html .= '<div class="event-row row g-3 pb-0 pb-md-3">';
 
             foreach ($row as $event) {
                 // Convert start time format
@@ -250,7 +250,7 @@ function past_events_function()
                 $eventStartTimeString = $eventStartTimeEST->format('l, F j \a\t g\:iA T');
 
                 // event wrapper HTML
-                $html .= '<div class="event-wrapper col-12 col-md-4">';
+                $html .= '<div class="event-wrapper col-12 col-md-3">';
                 $html .= '<div class="card border-dark event-card">';
 
                 // event image if there is one
