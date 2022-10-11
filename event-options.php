@@ -21,7 +21,6 @@ function engage_options_page()
     echo '<p>Events are displayed throughout the site from the CampusLabs Engage Platform, using their ';
     echo 'REST API. New events will be automatically pulled every 5 minutes. Configure the integration ';
     echo 'settings below if needed, but these should not need to change often.</p>';
-    echo '<h2 class="title">API Integration Settings</h2>';
     echo '<form method="post" action="options.php">';
     settings_fields('engage_options');
     do_settings_sections('engage');
@@ -86,10 +85,9 @@ function engage_setting_base_url()
 // Validation function for the base url settings field
 function engage_options_validate($input)
 {
-    $options = get_option('engage_options');
-    $options['base_url'] = trim($input['base_url']);
-    if (!preg_match('/^[a-z0-9]{32}$/i', $options['base_url'])) {
-        $options['base_url'] = '';
+    $newinput['base_url'] = trim($input['base_url']);
+    if (!preg_match('/^[a-z0-9]{32}$/i', $newinput['base_url'])) {
+        $newinput['base_url'] = '';
     }
-    return $options;
+    return $newinput;
 }
