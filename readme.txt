@@ -5,7 +5,7 @@ Contributors: Ben Bishop
 Requires at least: 4.5
 Tested up to: 6.0.1
 Requires PHP: 5.6
-Stable tag: 5.2.1.0
+Stable tag: 5.2.1.2
 License: MIT License
 License URI: https://github.com/bootscore/bootscore-child/blob/main/LICENSE
 
@@ -26,6 +26,7 @@ https://bootscore.me/theme/header-nav-default/
 1. In your admin panel, go to Appearance > Themes and click the Add New button.
 2. Click Upload Theme and Choose File, then select the theme's .zip file. Click Install Now.
 3. Click Activate to use your new theme right away.
+4. Go to the Settings -> Engage/Event menu and fill out required settings
 
 
 == Documentation ==
@@ -34,6 +35,11 @@ https://bootscore.me/documentation/using-the-child-themes/
 
 
 == Changelog ==
+
+    = 5.2.0.2 - October 11 2022 =
+    
+       * [NEW] Events can be automatically pulled from the CampusLabs Engage API.
+
 
     = 5.2.0.1 - September 16 2022 =
     
