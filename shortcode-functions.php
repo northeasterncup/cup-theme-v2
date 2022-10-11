@@ -265,25 +265,25 @@ function past_events_function()
 
                 // event title
                 $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $event['id'] . '" class="event-title-link" target="_blank">';
-                $html .= '<h3 class="card-title event-title"><small>' . $event['name'];
-                $html .= '</small></h3></a>';
+                $html .= '<h3 class="card-title event-title fs-5">' . $event['name'];
+                $html .= '</h3></a>';
 
                 // event text
                 $html .= '<div class="card-text event-text">';
 
                 // event date
                 $html .= '<div class="event-date pb-1">';
-                $html .= '<small><span class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTimeString;
-                $html .= '</span></small></div>';
+                $html .= '<span class="bi bi-pe-1 bi-calendar2-heart">' . $eventStartTimeString;
+                $html .= '</span></div>';
 
                 // event location
                 $html .= '<div class="event-location pb-3">';
-                $html .= '<small><span class="bi bi-pe-1 bi-geo-alt-fill">' . $event['address']['name'];
-                $html .= '</span></small></div>';
+                $html .= '<span class="bi bi-pe-1 bi-geo-alt-fill">' . $event['address']['name'];
+                $html .= '</span></div>';
 
                 // event button
                 $html .= '<div class="event-button">';
-                $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $event['id'] . '" class="btn btn-primary btn-sm bi bi-pe-2 bi-box-arrow-up-right" target="_blank">';
+                $html .= '<a href="https://neu.campuslabs.com/engage/event/' . $event['id'] . '" class="btn btn-primary bi bi-pe-2 bi-box-arrow-up-right" target="_blank">';
                 $html .= 'Learn More';
                 $html .= '</a></div>';
 
