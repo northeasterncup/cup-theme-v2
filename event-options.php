@@ -50,7 +50,7 @@ add_action('admin_init', 'engage_admin_init');
 function engage_admin_init()
 {
     // Register Engage API Settings
-    register_setting('engage_options', 'engage_options', array(
+    register_setting('reading', 'engage_options', array(
         'type' => 'array',
         'sanitize_callback' => 'engage_options_validate',
         'show_in_rest' => FALSE,
@@ -62,7 +62,7 @@ function engage_admin_init()
         'engage_api',
         'API Settings',
         'engage_api_text',
-        'engage'
+        'reading'
     );
 
     // Register Register Engage API Settings Fields
@@ -70,7 +70,7 @@ function engage_admin_init()
         'engage_base_url',
         'Base URL',
         'engage_setting_base_url',
-        'engage',
+        'reading',
         'engage_api'
     );
 }
