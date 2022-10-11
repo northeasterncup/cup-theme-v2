@@ -24,6 +24,6 @@ define('ENGAGE_BASE_URL', 'https://engage-api.campuslabs.com/api/v3.0');
 define('ENGAGE_PAGE_SIZE', '50');
 
 // Import other functions
-require_once(get_template_directory() . '/event-options.php');
-require_once(get_template_directory() . '/engage-functions.php');
-require_once(get_template_directory() . '/shortcode-functions.php');
+get_template_part('event-options', '');
+get_template_part('engage-functions', '');
+get_template_part('shortcode-functions', '');
