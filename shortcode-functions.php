@@ -12,9 +12,15 @@ function home_events_function()
 
     // If the Engage API Key is null or does not exist
     if ($engage_api_key == NULL || $engage_api_key == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events on the homepage.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -23,9 +29,15 @@ function home_events_function()
 
     // If the CUP Organization ID is null or does not exist
     if ($cup_org_id == NULL || $cup_org_id == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -133,9 +145,15 @@ function upcoming_events_function()
 
     // If the Engage API Key is null or does not exist
     if ($engage_api_key == NULL || $engage_api_key == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display upcoming events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -144,9 +162,15 @@ function upcoming_events_function()
 
     // If the CUP Organization ID is null or does not exist
     if ($cup_org_id == NULL || $cup_org_id == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -256,9 +280,15 @@ function past_events_function()
 
     // If the Engage API Key is null or does not exist
     if ($engage_api_key == NULL || $engage_api_key == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the Engage API Key under Settings -> Engage/Event Settings to display past events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -267,20 +297,15 @@ function past_events_function()
 
     // If the CUP Organization ID is null or does not exist
     if ($cup_org_id == NULL || $cup_org_id == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
-        return $error;
-    }
-
-    // Get the CUP Organization ID
-    $cup_org_id = get_option('engage_cup_org_id');
-
-    // If the CUP Organization ID is null or does not exist
-    if ($cup_org_id == NULL || $cup_org_id == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the CUP Organization ID under Settings -> Engage/Event Settings to display events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
@@ -289,9 +314,15 @@ function past_events_function()
 
     // If the event cutoff date is null or does not exist
     if ($event_cutoff == NULL || $event_cutoff == false) {
-        $error = '<div class="alert alert-danger">';
-        $error .= 'You must set the past event cutoff under Settings -> Engage/Event Settings to display past events.';
-        $error .= '</div>';
+        if (current_user_can('manage_options')) {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'You must set the past event cutoff under Settings -> Engage/Event Settings to display past events.';
+            $error .= '</div>';
+        } else {
+            $error = '<div class="alert alert-danger">';
+            $error .= 'An error has occurred. <a href="/contact">Contact our team.</a>';
+            $error .= '</div>';
+        }
         return $error;
     }
 
